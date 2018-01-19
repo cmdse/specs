@@ -32,7 +32,7 @@ Syntax
 This is a normalized syntax. If the user inputs forbidden characters, they shall be stripped out.
 
 .. code-block:: abnf
-    :caption: Query formal :rfc:`ABNF <5234>` syntax definition
+    :caption: Query formal :rfc:`ABNF <7405>` syntax definition
 
     SELECTOR-CHAR            = ALPHA / DIGIT / HYPHEN / UNDERSCORE
                              ; ASCII alphanum character or hyphen or underscore

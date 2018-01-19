@@ -2,7 +2,7 @@
 Shared definitions for ABNF grammars
 ####################################
 
-This section lists shared :rfc:`ABNF <5234>` definitions accross different grammars defined along this document.
+This section lists shared :rfc:`ABNF <7405>` definitions accross different grammars defined along this document.
 
 .. ;
   ABNF Validator: http://www.fenron.net/~fenner/abnf.cgi
