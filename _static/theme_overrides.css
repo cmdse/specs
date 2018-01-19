@@ -1,0 +1,36 @@
+/* override table width restrictions */
+@media screen and (min-width: 767px) {
+
+   .wy-table-responsive table td {
+      /* !important prevents the common CSS stylesheets from overriding
+         this as on RTD they are loaded after this stylesheet */
+      white-space: normal !important;
+   }
+
+   .wy-table-responsive {
+      overflow: visible !important;
+   }
+}
+
+.caption-text {
+  font-style: italic;
+  font-family: serif;
+}
+
+.wy-side-nav-search input[type=text] {
+  border-radius: unset;
+}
+
+.code-block-caption {
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+/* Fix webkit bug */
+div[class^='highlight-'] {
+  overflow-y: hidden;
+}
+
+body {
+  font-family: serif;
+}

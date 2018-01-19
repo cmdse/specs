@@ -1,0 +1,105 @@
+@startuml
+
+!define FONT_FAMILLY "Lato light"
+!define DEFAULT_FONT_COLOR Black
+!define DEFAULT_ARROW_COLOR #696969
+!define ACTOR_BORDER_COLOR DarkSlateGray
+!define ARROW_FONT_SIZE 8
+!define ARROW_FONT_NAME "Lato"
+!define LIFE_LINE_COLOR SteelBlue
+!define PARTICIPANT_FONT_SIZE 10
+!define PARTICIPANT_BORDER_COLOR SlateGrey
+!define START_COLOR DarkSlateGray
+!define END_COLOR DarkSlateGray
+!define ACTIVITY_BORDER_COLOR SlateGrey
+!define ACTIVITY_FILL_COLOR #fffafa
+!define ACTIVITY_BAR_FILL_COLOR #D5D5D5
+!define PARTITION_BORDER_COLOR #D5D5D5
+!define CLASS_FILL_COLOR White
+!define CLASS_BORDER_COLOR SlateGrey
+!define DIAMOND_BACKGROUND_COLOR White
+!define DIAMOND_BORDER_COLOR DEFAULT_ARROW_COLOR
+!define DIAMOND_FONT_COLOR Black
+!define DIAMOND_FONT_SIZE 10
+!define DIAMOND_FONT_STYLE "normal"
+!define DIAMOND_FONT_FAMILLY "Lato"
+
+skinparam defaultFontName FONT_FAMILLY
+skinparam defaultFontSize 12
+skinparam shadowing false
+skinparam defaultTextAlignment left
+
+hide footbox
+
+skinparam usecase {
+  BackgroundColor White
+  BorderColor SlateGrey
+}
+
+skinparam rectangle {
+  BackgroundColor White
+  BorderColor SlateGrey
+}
+
+skinparam sequence {
+  ArrowColor DEFAULT_ARROW_COLOR
+  ArrowFontSize ARROW_FONT_SIZE
+  ArrowFontName ARROW_FONT_NAME
+
+  LifeLineBorderColor LIFE_LINE_COLOR
+  LifeLineBackgroundColor #A9DCDF
+
+  ParticipantBorderColor PARTICIPANT_BORDER_COLOR
+  ParticipantBackgroundColor White
+  ParticipantFontSize PARTICIPANT_FONT_SIZE
+  ParticipantFontColor DEFAULT_FONT_COLOR
+
+  ActorBorderColor ACTOR_BORDER_COLOR
+  ActorBackgroundColor White
+  ActorFontColor DEFAULT_FONT_COLOR
+  ActorFontSize PARTICIPANT_FONT_SIZE
+}
+
+
+skinparam {
+  SwimlaneBorderThickness 2
+  SwimlaneBorderColor Gray
+  SwimlaneTitleFontSize 25
+  SwimlaneTitleFontStyle "underline"
+}
+
+skinparam state {
+  BackgroundColor White
+}
+
+skinparam activity {
+  ArrowColor DEFAULT_ARROW_COLOR
+  ArrowFontSize ARROW_FONT_SIZE
+  ArrowFontName ARROW_FONT_NAME
+
+  StartColor START_COLOR
+  BarColor ACTIVITY_BAR_FILL_COLOR
+  EndColor END_COLOR
+  BackgroundColor ACTIVITY_FILL_COLOR
+  BorderColor ACTIVITY_BORDER_COLOR
+
+  DiamondBorderColor DIAMOND_BORDER_COLOR
+  DiamondBackgroundColor DIAMOND_BACKGROUND_COLOR
+  DiamondFontSize DIAMOND_FONT_SIZE
+  DiamondFontStyle DIAMOND_FONT_STYLE
+  DiamondFontColor DIAMOND_FONT_COLOR
+  DiamondFontFamilly DIAMOND_FONT_FAMILLY
+}
+
+skinparam class {
+	BackgroundColor CLASS_FILL_COLOR
+	ArrowColor DEFAULT_ARROW_COLOR
+	BorderColor CLASS_BORDER_COLOR
+}
+
+skinparam Partition {
+    BackgroundColor White
+    BorderColor PARTITION_BORDER_COLOR
+}
+
+@enduml
