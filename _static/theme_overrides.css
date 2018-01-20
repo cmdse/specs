@@ -26,6 +26,24 @@
   margin-bottom: 5px;
 }
 
+.admonition-requirement .admonition-title {
+    background: black;
+}
+.admonition-requirement .admonition-title:before {
+  content: "\f02d";
+}
+
+.admonition-requirement .last {
+    margin-bottom: 0;
+}
+
+.admonition-requirement {
+  padding: 12px;
+  line-height: 24px;
+  margin-bottom: 24px;
+  background: #e7f2fa;
+}
+
 /* Fix webkit bug */
 div[class^='highlight-'] {
   overflow-y: hidden;
