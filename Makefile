@@ -217,5 +217,5 @@ pseudoxml:
 
 .PHONY: livehtml
 livehtml:
-	sphinx-autobuild -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
+	sphinx-autobuild --ignore "*.lock" -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 	@echo
