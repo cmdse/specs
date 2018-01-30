@@ -1,173 +1,173 @@
-<letter> ::= a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z|
+<ALPHA> ::= a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z|
              A|B|C|D|E|F|G|H|I|J|K|L|M|N|O|P|Q|R|S|T|U|V|W|X|Y|Z
 
-<digit> ::= 0|1|2|3|4|5|6|7|8|9
+<DIGIT> ::= 0|1|2|3|4|5|6|7|8|9
 
-<number> ::= <digit>
-           | <number> <digit>
+<NUMBER> ::= <DIGIT>
+           | <NUMBER> <DIGIT>
 
-<word> ::= <letter>
-         | <word> <letter>
-         | <word> '_'
+<WORD> ::= <ALPHA>
+         | <WORD> <ALPHA>
+         | <WORD> '_'
 
-<word_list> ::= <word>
-             |  <word_list> <word>
+<WORD-LIST> ::= <WORD>
+             |  <WORD-LIST> <WORD>
 
-<assignment_word> ::= <word> '=' <word>
+<ASSIGNMENT-WORD> ::= <WORD> '=' <WORD>
 
 
-<redirection> ::=  '>' <word>
-                |  '<' <word>
-                |  <number> '>' <word>
-                |  <number> '<' <word>
-                |  '>>' <word>
-                |  <number> '>>' <word>
-                |  '<<' <word>
-                |  <number> '<<' <word>
-                |  '<&' <number>
-                |  <number> '<&' <number>
-                |  '>&' <number>
-                |  <number> '>&' <number>
-                |  '<&' <word>
-                |  <number> '<&' <word>
-                |  '>&' <word>
-                |  <number> '>&' <word>
-                |  '<<-' <word>
-                |  <number> '<<-' <word>
+<REDIRECTION> ::=  '>' <WORD>
+                |  '<' <WORD>
+                |  <NUMBER> '>' <WORD>
+                |  <NUMBER> '<' <WORD>
+                |  '>>' <WORD>
+                |  <NUMBER> '>>' <WORD>
+                |  '<<' <WORD>
+                |  <NUMBER> '<<' <WORD>
+                |  '<&' <NUMBER>
+                |  <NUMBER> '<&' <NUMBER>
+                |  '>&' <NUMBER>
+                |  <NUMBER> '>&' <NUMBER>
+                |  '<&' <WORD>
+                |  <NUMBER> '<&' <WORD>
+                |  '>&' <WORD>
+                |  <NUMBER> '>&' <WORD>
+                |  '<<-' <WORD>
+                |  <NUMBER> '<<-' <WORD>
                 |  '>&' '-'
-                |  <number> '>&' '-'
+                |  <NUMBER> '>&' '-'
                 |  '<&' '-'
-                |  <number> '<&' '-'
-                |  '&>' <word>
-                |  <number> '<>' <word>
-                |  '<>' <word>
-                |  '>|' <word>
-                |  <number> '>|' <word>
+                |  <NUMBER> '<&' '-'
+                |  '&>' <WORD>
+                |  <NUMBER> '<>' <WORD>
+                |  '<>' <WORD>
+                |  '>|' <WORD>
+                |  <NUMBER> '>|' <WORD>
 
-<simple_command_element> ::= <word>
-                          |  <assignment_word>
-                          |  <redirection>
+<SIMPLE-COMMAND-ELEMENT> ::= <WORD>
+                          |  <ASSIGNMENT-WORD>
+                          |  <REDIRECTION>
 
-<redirection_list> ::= <redirection>
-                    |  <redirection_list> <redirection>
+<REDIRECTION-LIST> ::= <REDIRECTION>
+                    |  <REDIRECTION-LIST> <REDIRECTION>
 
-<simple_command> ::=  <simple_command_element>
-                   |  <simple_command> <simple_command_element>
+<SIMPLE-COMMAND> ::=  <SIMPLE-COMMAND-ELEMENT>
+                   |  <SIMPLE-COMMAND> <SIMPLE-COMMAND-ELEMENT>
 
-<command> ::=  <simple_command>
-            |  <shell_command>
-            |  <shell_command> <redirection_list>
+<COMMAND> ::=  <SIMPLE-COMMAND>
+            |  <SHELL-COMMAND>
+            |  <SHELL-COMMAND> <REDIRECTION-LIST>
 
-<shell_command> ::=  <for_command>
-                  |  <case_command>
-                  |  while <compound_list> do <compound_list> done
-                  |  until <compound_list> do <compound_list> done
-                  |  <select_command>
-                  |  <if_command>
-                  |  <subshell>
-                  |  <group_command>
-                  |  <function_def>
+<SHELL-COMMAND> ::=  <FOR-COMMAND>
+                  |  <CASE-COMMAND>
+                  |  while <COMPOUND-LIST> do <COMPOUND-LIST> done
+                  |  until <COMPOUND-LIST> do <COMPOUND-LIST> done
+                  |  <SELECT-COMMAND>
+                  |  <IF-COMMAND>
+                  |  <SUBSHELL>
+                  |  <GROUP-COMMAND>
+                  |  <FUNCTION-DEF>
 
-<for_command> ::=  for <word> <newline_list> do <compound_list> done
-            |  for <word> <newline_list> '{' <compound_list> '}'
-            |  for <word> ';' <newline_list> do <compound_list> done
-            |  for <word> ';' <newline_list> '{' <compound_list> '}'
-            |  for <word> <newline_list> in <word_list> <list_terminator>
-                   <newline_list> do <compound_list> done
-            |  for <word> <newline_list> in <word_list> <list_terminator>
-                   <newline_list> '{' <compound_list> '}'
+<FOR-COMMAND> ::=  for <WORD> <NEWLINE-LIST> do <COMPOUND-LIST> done
+            |  for <WORD> <NEWLINE-LIST> '{' <COMPOUND-LIST> '}'
+            |  for <WORD> ';' <NEWLINE-LIST> do <COMPOUND-LIST> done
+            |  for <WORD> ';' <NEWLINE-LIST> '{' <COMPOUND-LIST> '}'
+            |  for <WORD> <NEWLINE-LIST> in <WORD-LIST> <LIST-TERMINATOR>
+                   <NEWLINE-LIST> do <COMPOUND-LIST> done
+            |  for <WORD> <NEWLINE-LIST> in <WORD-LIST> <LIST-TERMINATOR>
+                   <NEWLINE-LIST> '{' <COMPOUND-LIST> '}'
 
-<select_command> ::=  select <word> <newline_list> do <list> done
-                   |  select <word> <newline_list> '{' <list> '}'
-                   |  select <word> ';' <newline_list> do <list> done
-                   |  select <word> ';' <newline_list> '{' list '}'
-                   |  select <word> <newline_list> in <word_list>
-                           <list_terminator> <newline_list> do <list> done
-                   |  select <word> <newline_list> in <word_list>
-                           <list_terminator> <newline_list> '{' <list> '}'
+<SELECT-COMMAND> ::=  select <WORD> <NEWLINE-LIST> do <LIST> done
+                   |  select <WORD> <NEWLINE-LIST> '{' <LIST> '}'
+                   |  select <WORD> ';' <NEWLINE-LIST> do <LIST> done
+                   |  select <WORD> ';' <NEWLINE-LIST> '{' LIST '}'
+                   |  select <WORD> <NEWLINE-LIST> in <WORD-LIST>
+                           <LIST-TERMINATOR> <NEWLINE-LIST> do <LIST> done
+                   |  select <WORD> <NEWLINE-LIST> in <WORD-LIST>
+                           <LIST-TERMINATOR> <NEWLINE-LIST> '{' <LIST> '}'
 
-<case_command> ::=  case <word> <newline_list> in <newline_list> esac
-                 |  case <word> <newline_list> in <case_clause_sequence>
-                         <newline_list> esac
-                 |  case <word> <newline_list> in <case_clause> esac
+<CASE-COMMAND> ::=  case <WORD> <NEWLINE-LIST> in <NEWLINE-LIST> esac
+                 |  case <WORD> <NEWLINE-LIST> in <CASE-CLAUSE-SEQUENCE>
+                         <NEWLINE-LIST> esac
+                 |  case <WORD> <NEWLINE-LIST> in <CASE-CLAUSE> esac
 
-<function_def> ::=  <word> '(' ')' <newline_list> <group_command>
-                 |  function <word> '(' ')' <newline_list> <group_command>
-                 |  function <word> <newline_list> <group_command>
+<FUNCTION-DEF> ::=  <WORD> '(' ')' <NEWLINE-LIST> <GROUP-COMMAND>
+                 |  function <WORD> '(' ')' <NEWLINE-LIST> <GROUP-COMMAND>
+                 |  function <WORD> <NEWLINE-LIST> <GROUP-COMMAND>
 
-<subshell> ::=  '(' <compound_list> ')'
+<SUBSHELL> ::=  '(' <COMPOUND-LIST> ')'
 
-<if_command> ::= if <compound_list> then <compound_list> fi
-          | if <compound_list> then <compound_list> else <compound_list> fi
-          | if <compound_list> then <compound_list> <elif_clause> fi
+<IF-COMMAND> ::= if <COMPOUND-LIST> then <COMPOUND-LIST> fi
+          | if <COMPOUND-LIST> then <COMPOUND-LIST> else <COMPOUND-LIST> fi
+          | if <COMPOUND-LIST> then <COMPOUND-LIST> <ELIF-CLAUSE> fi
 
-<group_command> ::=  '{' <list> '}'
+<GROUP-COMMAND> ::=  '{' <LIST> '}'
 
-<elif_clause> ::= elif <compound_list> then <compound_list>
-           | elif <compound_list> then <compound_list> else <compound_list>
-           | elif <compound_list> then <compound_list> <elif_clause>
+<ELIF-CLAUSE> ::= elif <COMPOUND-LIST> then <COMPOUND-LIST>
+           | elif <COMPOUND-LIST> then <COMPOUND-LIST> else <COMPOUND-LIST>
+           | elif <COMPOUND-LIST> then <COMPOUND-LIST> <ELIF-CLAUSE>
 
-<case_clause> ::=  <pattern_list>
-                |  <case_clause_sequence> <pattern_list>
+<CASE-CLAUSE> ::=  <PATTERN-LIST>
+                |  <CASE-CLAUSE-SEQUENCE> <PATTERN-LIST>
 
-<pattern_list> ::=  <newline_list> <pattern> ')' <compound_list>
-                 |  <newline_list> <pattern> ')' <newline_list>
-                 |  <newline_list> '(' <pattern> ')' <compound_list>
-                 |  <newline_list> '(' <pattern> ')' <newline_list>
+<PATTERN-LIST> ::=  <NEWLINE-LIST> <PATTERN> ')' <COMPOUND-LIST>
+                 |  <NEWLINE-LIST> <PATTERN> ')' <NEWLINE-LIST>
+                 |  <NEWLINE-LIST> '(' <PATTERN> ')' <COMPOUND-LIST>
+                 |  <NEWLINE-LIST> '(' <PATTERN> ')' <NEWLINE-LIST>
 
-<case_clause_sequence> ::=  <pattern_list> ';;'
-                         |  <case_clause_sequence> <pattern_list> ';;'
+<CASE-CLAUSE-SEQUENCE> ::=  <PATTERN-LIST> ';;'
+                         |  <CASE-CLAUSE-SEQUENCE> <PATTERN-LIST> ';;'
 
-<pattern> ::=  <word>
-            |  <pattern> '|' <word>
+<PATTERN> ::=  <WORD>
+            |  <PATTERN> '|' <WORD>
 
 
-<list> ::=   <newline_list> <list0>
+<LIST> ::=   <NEWLINE-LIST> <LIST0>
 
-<compound_list> ::=  <list>
-                  |  <newline_list> <list1>
+<COMPOUND-LIST> ::=  <LIST>
+                  |  <NEWLINE-LIST> <LIST1>
 
-<list0> ::=   <list1> '\n' <newline_list>
-           |  <list1> '&' <newline_list>
-           |  <list1> ';' <newline_list>
+<LIST0> ::=   <LIST1> '\n' <NEWLINE-LIST>
+           |  <LIST1> '&' <NEWLINE-LIST>
+           |  <LIST1> ';' <NEWLINE-LIST>
 
-<list1> ::=   <list1> '&&' <newline_list> <list1>
-           |  <list1> '||' <newline_list> <list1>
-           |  <list1> '&' <newline_list> <list1>
-           |  <list1> ';' <newline_list> <list1>
-           |  <list1> '\n' <newline_list> <list1>
-           |  <pipeline_command>
+<LIST1> ::=   <LIST1> '&&' <NEWLINE-LIST> <LIST1>
+           |  <LIST1> '||' <NEWLINE-LIST> <LIST1>
+           |  <LIST1> '&' <NEWLINE-LIST> <LIST1>
+           |  <LIST1> ';' <NEWLINE-LIST> <LIST1>
+           |  <LIST1> '\n' <NEWLINE-LIST> <LIST1>
+           |  <PIPELINE-COMMAND>
 
-<list_terminator> ::= '\n'
+<LIST-TERMINATOR> ::= '\n'
                    |  ';'
 
-<newline_list> ::=
-                  |  <newline_list> '\n'
+<NEWLINE-LIST> ::=
+                  |  <NEWLINE-LIST> '\n'
 
-<simple_list> ::=  <simple_list1>
-                |  <simple_list1> '&'
-                |  <simple_list1> ';'
+<SIMPLE-LIST> ::=  <SIMPLE-LIST1>
+                |  <SIMPLE-LIST1> '&'
+                |  <SIMPLE-LIST1> ';'
 
-<simple_list1> ::=  <simple_list1> '&&' <newline_list> <simple_list1>
-                 |  <simple_list1> '||' <newline_list> <simple_list1>
-                 |  <simple_list1> '&' <simple_list1>
-                 |  <simple_list1> ';' <simple_list1>
-                 |  <pipeline_command>
+<SIMPLE-LIST1> ::=  <SIMPLE-LIST1> '&&' <NEWLINE-LIST> <SIMPLE-LIST1>
+                 |  <SIMPLE-LIST1> '||' <NEWLINE-LIST> <SIMPLE-LIST1>
+                 |  <SIMPLE-LIST1> '&' <SIMPLE-LIST1>
+                 |  <SIMPLE-LIST1> ';' <SIMPLE-LIST1>
+                 |  <PIPELINE-COMMAND>
 
-<pipeline_command> ::= <pipeline>
-                    |  '!' <pipeline>
-                    |  <timespec> <pipeline>
-                    |  <timespec> '!' <pipeline>
-                    |  '!' <timespec> <pipeline>
+<PIPELINE-COMMAND> ::= <PIPELINE>
+                    |  '!' <PIPELINE>
+                    |  <TIMESPEC> <PIPELINE>
+                    |  <TIMESPEC> '!' <PIPELINE>
+                    |  '!' <TIMESPEC> <PIPELINE>
 
-<pipeline> ::=
-          <pipeline> '|' <newline_list> <pipeline>
-       |  <command>
+<PIPELINE> ::=
+          <PIPELINE> '|' <NEWLINE-LIST> <PIPELINE>
+       |  <COMMAND>
 
-<time_opt> ::= '-p'
+<TIME-OPT> ::= '-p'
 
-<timespec> ::=  time
-             |  time <time_opt>
+<TIMESPEC> ::=  time
+             |  time <TIME-OPT>
 
 .XE "BNF (Backus-Naur Form)"
 .XE "bash" "syntax, BNF form of"

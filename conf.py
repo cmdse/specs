@@ -35,15 +35,17 @@ extensions = [
     'sphinx.ext.todo',
     'sphinx.ext.coverage',
     'sphinx.ext.ifconfig',
+    'sphinx.ext.graphviz',
     'sphinxcontrib.golangdomain',
     'sphinxcontrib.plantuml',
+    'manpage',
     'requirements'
 ]
 
 rst_epilog = """
 
 .. |project-name| replace:: ``cmdse``
-.. |app-name| replace:: ``cmdse``
+.. |app-name| replace:: **cmdse**
 
 """
 
@@ -124,7 +126,7 @@ todo_include_todos = True
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = "sphinx_rtd_theme"
+html_theme = "sphinx_rtd_theme" # "sphinx_rtd_theme"
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -292,6 +294,15 @@ texinfo_documents = [
      author, 'cmdse', 'One line description of project.',
      'Miscellaneous'),
 ]
+
+# Graphviz options
+
+graphviz_output_format = 'svg'
+plantuml_output_format = 'png'
+
+# set figures numbers
+
+numfig = True
 
 # Documents to append as an appendix to all manuals.
 #texinfo_appendices = []

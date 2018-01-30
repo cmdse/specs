@@ -83,3 +83,18 @@ Examples
   $ cmdse :docker remove all containers
   docker rm $(docker ps -a -q)
   (V10>) Remove all containers.
+
+
+Target platform requirements
+############################
+
+.. requirement:: target-platform-posix
+
+  The |app-name| command line tool targets modern Linux-GNU distributions with 3.X and 4.X kernels.
+
+.. requirement:: target-terminal
+
+  The |app-name| command line tool should be compatible with the following terminals:
+
+  - Any modern terminal emulator, such as ``xterm``, ``konsole``, ``GNOME terminal`` ...
+  - Linux virtual console

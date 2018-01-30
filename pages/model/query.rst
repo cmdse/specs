@@ -29,7 +29,18 @@ Definitions
 Syntax
 #####################
 
-This is a normalized syntax. If the user inputs forbidden characters, they shall be stripped out.
+.. note ::
+
+  The program internal string representations are in :term:`utf-8` and I/O operation will be transcoded to the environement encoding.
+  See :doc:`/pages/character-encoding`.
+
+.. note ::
+
+  This is a normalized syntax. If the user inputs forbidden characters, they shall be stripped out.
+
+.. note::
+
+  See the :doc:`/pages/appendix/grammar-commons` section for the depending token definitions.
 
 .. code-block:: abnf
     :caption: Query formal :rfc:`ABNF <7405>` syntax definition
@@ -49,14 +60,27 @@ This is a normalized syntax. If the user inputs forbidden characters, they shall
     QUERY-WORD               = SELECTOR / LITERAL
     QUERY                    = QUERY-WORD / (QUERY-WORD WSP-SEQUENCE QUERY)
 
-.. note::
+List of selectors
+#################
 
-  See the :doc:`/pages/appendix/grammar-commons` section for the depending definitions.
+.. todo::
 
-Search sort algorithm
-#####################
+  Specify query selectors
 
-.. todo:: Define query search sort algorithm
+Search sort requirements
+########################
+
+.. requirement:: result-by-relevance
+
+  Results should be sorted by relevance.
+
+.. requirement:: relevance-composition
+
+  Relevance should be a composition of
+
+  - string matching in snippet description
+  - snippet popularity
+  - snippet reputation
 
 .. La commande renvoie, par défaut, le résultat le plus pertinent associé à la requête, ou bien les résultats les plus pertinents si l'écart de pertinence entre chaque résultat est inférieur à un seuil assez faible
   Les commandes apparaissent dans l'ordre de popularité (utilité objective) ou dans l'ordre de conception (utilité subjective, c-à-d l'utilité attribuée par les mainteneurs du logiciels).

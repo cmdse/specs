@@ -1,0 +1,24 @@
+\documentclass[varwidth=100cm]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage{csquotes}
+\usepackage{algpseudocode}
+
+\begin{document}
+\begin{algorithmic}[1]
+  \Require{$token.type$ is not \enquote{semantic}}
+  \Statex
+  \Function{inferLeft}{$token$, $tokenList$}
+    \State{$index \gets token.argumentPosition$}
+    \If{$token.type$ is not \enquote{option} \textbf{and} $index > 0$}
+      \State{$neighbour \gets tokenList[index-1]$}
+      \If{$neighbour.type.posModel.binding$ is \enquote{NONE} \textbf{or} is \enquote{LEFT}}
+          \State{$token.semanticCandidates \gets [\textrm{"OPERAND"}]$}
+          \State{$convertToSemantic(token)$}
+      \ElsIf{$neighbour.type.posModel.binding$ is \enquote{RIGHT}}
+          \State{\textbf{remove} $type$ \textbf{from} $token.semanticCandidates$ \textbf{when} $type.posModel.binding$ is not \enquote{LEFT}}
+          \State{$convertToSemantic(token)$}
+      \EndIf
+    \EndIf
+  \EndFunction
+\end{algorithmic}
+\end{document}

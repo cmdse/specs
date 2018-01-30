@@ -23,7 +23,11 @@ Feature-rich, semantic-wise crowdourced knowledge hub and search engine for usef
    :glob:
 
    pages/introduction
-   pages/model/*
+   pages/cli
+   pages/model/command-snippet
+   pages/model/call-expression-parsing
+   pages/model/query
+   pages/model/user
    pages/*
    pages/appendix/*
 

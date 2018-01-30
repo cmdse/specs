@@ -1,6 +1,6 @@
 @startuml
 
-!define FONT_FAMILLY "Lato light"
+!define FONT_FAMILLY "Hack"
 !define DEFAULT_FONT_COLOR Black
 !define DEFAULT_ARROW_COLOR #696969
 !define ACTOR_BORDER_COLOR DarkSlateGray
@@ -22,7 +22,7 @@
 !define DIAMOND_FONT_COLOR Black
 !define DIAMOND_FONT_SIZE 10
 !define DIAMOND_FONT_STYLE "normal"
-!define DIAMOND_FONT_FAMILLY "Lato"
+!define DIAMOND_FONT_FAMILLY "Hack"
 
 skinparam defaultFontName FONT_FAMILLY
 skinparam defaultFontSize 12
@@ -30,6 +30,7 @@ skinparam shadowing false
 skinparam defaultTextAlignment left
 
 hide footbox
+hide empty methods
 
 skinparam usecase {
   BackgroundColor White

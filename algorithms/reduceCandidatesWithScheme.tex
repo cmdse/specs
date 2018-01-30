@@ -1,0 +1,23 @@
+\documentclass[varwidth=100cm]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage{csquotes}
+\usepackage{algpseudocode}
+
+\begin{document}
+\begin{algorithmic}[1]
+  \Require{$token.type$ is \enquote{option} and not \enquote{semantic}}
+  \Statex
+  \Function{reduceCandidatesWithScheme}{$token$, $scheme$}
+      \State{$tokenCandidates \gets token.semanticCandidates$}
+      \State{$schemeCandidates \gets map(scheme.variants::flagType) \cup map(scheme.variants::valueType)$}
+      \State{$matchedCandidates \gets schemeCandidates \cap tokenCandidates$}
+      \If{$matchedCandidates.length \geq 1$}
+          \State{$token.semanticCandidates \gets matchedCandidates$}
+          \State{$convertToSemantic(token)$}
+      \Else
+          \State{$token.type \gets$ \enquote{WORD}}
+          \State{$token.semanticCandidates \gets$ \enquote{WORD}$.semanticCandidates$}
+      \EndIf
+  \EndFunction
+\end{algorithmic}
+\end{document}

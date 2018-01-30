@@ -12,6 +12,24 @@
    }
 }
 
+table, .literal-block-wrapper.docutils.container {
+  margin: auto;
+}
+
+.wy-nav-content {
+  max-width: 1000px;
+}
+
+@media screen and (min-width: 1300px) {
+  .wy-nav-content {
+    width: 1000px;
+  }
+}
+
+.admonition {
+  margin-right: auto;
+}
+
 .caption-text {
   font-style: italic;
   font-family: serif;
@@ -27,7 +45,7 @@
 }
 
 .admonition-requirement .admonition-title {
-    background: black;
+    background: #404040;
 }
 .admonition-requirement .admonition-title:before {
   content: "\f02d";
@@ -37,11 +55,105 @@
     margin-bottom: 0;
 }
 
-.admonition-requirement {
+.linuxman-url {
+  color: #600;
+}
+
+.linuxman-url:visited {
+  color: #600;
+}
+
+.linuxman-url:hover {
+  color: #FF0000;
+}
+
+.xref.std.std-term {
+  color: #545353;
+  font-style: italic;
+}
+
+.xref.std.std-term:visited {
+  color: #545353;
+}
+
+.xref.std.std-term:hover {
+  color: unset;
+}
+
+.rst-content .docutils.footnote {
+  margin-bottom: 0;
+}
+
+.rst-content .admonition-requirement {
   padding: 12px;
   line-height: 24px;
   margin-bottom: 24px;
   background: #e7f2fa;
+}
+
+.rst-content .figure {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.rst-content .figure > object:first-of-type {
+  /* margin: auto; */
+  padding: 0 3em;
+  border: 1px solid #c6c6c6;
+  max-width: 100%;
+}
+
+.rst-content .figure .caption {
+  margin: auto;
+}
+
+.rst-content .figure.align-left {
+    float: none;
+    align-items: flex-start;
+}
+
+.rst-content .figure.align-right {
+    float: none;
+    align-items: flex-end;
+}
+
+.rst-content .figure.center {
+    float: none;
+    align-items: center;
+}
+
+.rst-content .footnote-reference {
+  vertical-align: baseline;
+  position: relative;
+  top: -0.4em;
+  font-size: 75%;
+}
+
+/* Fix firefox bug */
+.wy-table thead th, .rst-content table.docutils thead th, .rst-content table.field-list thead th {
+  border-left: solid 2px #e1e4e5;
+}
+
+.footnotes.container .wy-table-responsive {
+  margin-bottom: 0;
+}
+.footnotes.container .wy-table-responsive .footnote {
+  margin: 0;
+}
+.footnotes.container .wy-table-responsive table {
+  max-width: unset;
+}
+
+.footnotes.container {
+  margin-bottom: 24px;
+}
+
+.wy-table caption,.rst-content table.docutils caption,.rst-content table.field-list caption,.rst-content .figure .caption  {
+    color: #000;
+    font: italic 100%/1 arial,sans-serif;
+    padding: 1em 0;
+    text-align: center
 }
 
 /* Fix webkit bug */
@@ -49,6 +161,26 @@ div[class^='highlight-'] {
   overflow-y: hidden;
 }
 
+.glossary.docutils p {
+  line-height: 1;
+}
+
+.line-block {
+  margin-left: 0 !important;
+}
+
+p:not(.plantuml), .glossary .dd {
+  text-align: justify;
+}
+
 body {
   font-family: serif;
+}
+
+.caption .headerlink::after {
+  display: none !important;
+}
+.caption .headerlink {
+  display: inline-block !important;
+  visibility: visible !important;
 }
