@@ -36,6 +36,7 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.ifconfig',
     'sphinx.ext.graphviz',
+    'sphinx.ext.githubpages',
     'sphinxcontrib.golangdomain',
     'sphinxcontrib.plantuml',
     'manpage',
@@ -299,6 +300,8 @@ texinfo_documents = [
 
 graphviz_output_format = 'svg'
 plantuml_output_format = 'png'
+
+todo_include_todos = os.environ['SPHINX_DEV'] == "1"
 
 # set figures numbers
 
