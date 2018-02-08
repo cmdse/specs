@@ -301,7 +301,7 @@ texinfo_documents = [
 graphviz_output_format = 'svg'
 plantuml_output_format = 'png'
 
-todo_include_todos = os.environ['SPHINX_DEV'] == "1"
+todo_include_todos = os.environ.get('SPHINX_PRODUCTION', "0") == "0"
 
 # set figures numbers
 

@@ -4,7 +4,7 @@ BUILD_DIR='./_build'
 GIT_DEPLOY_DIR="./_build/html"
 GIT_DEPLOY_BRANCH="master"
 GIT_DEPLOY_REPO="git@github.com:cmdse/cmdse.github.io.git"
-export SPHINX_DEV=0
+export SPHINX_PRODUCTION=1
 
 set -o errexit #abort if any command fails
 me=$(basename "$0")
