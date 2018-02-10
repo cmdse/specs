@@ -330,6 +330,12 @@ An :term:`option scheme` is a set of option expression variants which delimits t
   * - Preset
     - Description
     - Supported option expression variants
+  * - POSIX-Strict
+    - Option expressions can be can be composed solely with POSIX-styled variants.
+    - * ``POSIX_SHORT_SWITCH``
+      * ``POSIX_STACKED_SHORT_SWITCHES``
+      * ``POSIX_SHORT_ASSIGNMENT``
+      * ``END_OF_OPTIONS``
   * - Linux-Standard
     - Option expressions can be of any common GNU or POSIX-styled variants. Very often, one option has either one GNU and one POSIX variant, either one POSIX variant.
     - * ``POSIX_SHORT_SWITCH``
@@ -355,6 +361,13 @@ An :term:`option scheme` is a set of option expression variants which delimits t
       * ``GNU_SWITCH``
       * ``GNU_IMPLICIT_ASSIGNMENT``
       * ``END_OF_OPTIONS``
+  * - X-Toolkit-Strict
+    - Option expressions can be composed solely with X-Toolkit-styled variants.
+    - * ``X2LKT_SWITCH``
+      * ``X2LKT_REVERSE_SWITCH``
+      * ``X2LKT_IMPLICIT_ASSIGNMENT``
+      * ``X2LKT_EXPLICIT_ASSIGNMENT``
+      * ``END_OF_OPTIONS``
   * - X-Toolkit-Standard
     - Option expressions can be composed solely with X-Toolkit-styled variants and POSIX short.
     - * ``X2LKT_SWITCH``
@@ -362,18 +375,21 @@ An :term:`option scheme` is a set of option expression variants which delimits t
       * ``X2LKT_IMPLICIT_ASSIGNMENT``
       * ``X2LKT_EXPLICIT_ASSIGNMENT``
       * ``POSIX_SHORT_SWITCH``
+      * ``END_OF_OPTIONS``
   * - X-Toolkit-Explicit
     - Option expressions can be composed solely with X-Toolkit-styled variants and POSIX short.
     - * ``X2LKT_SWITCH``
       * ``X2LKT_REVERSE_SWITCH``
       * ``X2LKT_EXPLICIT_ASSIGNMENT``
       * ``POSIX_SHORT_SWITCH``
+      * ``END_OF_OPTIONS``
   * - X-Toolkit-Implicit
     - Option expressions can be composed solely with X-Toolkit-styled variants and POSIX short.
     - * ``X2LKT_SWITCH``
       * ``X2LKT_REVERSE_SWITCH``
       * ``X2LKT_IMPLICIT_ASSIGNMENT``
       * ``POSIX_SHORT_SWITCH``
+      * ``END_OF_OPTIONS``
 
 Analytic model
 ##############

@@ -100,10 +100,9 @@ Some of these context-free token types overlap semantic token types, because the
     - ``[--option]``
     - * ``GNU_SWITCH``
       * ``GNU_IMPLICIT_ASSIGNMENT_LEFT_SIDE``
-  * - ``WORD``
+  * - ``OPT_WORD``
     - no\ [#headless-option-exception]_
-    - | ``ls [~/]``
-      | ``-o [<value>]``
+    - | ``-o [<value>]``
       | ``--option [<value>]``
       | ``-option [<value>]``
       | ``option``
@@ -112,6 +111,16 @@ Some of these context-free token types overlap semantic token types, because the
       * ``GNU_IMPLICIT_ASSIGNMENT_VALUE``
       * ``X2LKT_IMPLICIT_ASSIGNMENT_VALUE``
       * ``HEADLESS_OPTION``
+  * - ``WORD``
+    - no
+    - | ``ls [~/]``
+      | ``-o /some/file``
+      | ``--option /some/files``
+      | ``-option /some/file``
+    - * ``OPERAND``
+      * ``POSIX_SHORT_ASSIGNMENT_VALUE``
+      * ``GNU_IMPLICIT_ASSIGNMENT_VALUE``
+      * ``X2LKT_IMPLICIT_ASSIGNMENT_VALUE``
 
 
 Semantic tokens typings
