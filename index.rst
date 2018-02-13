@@ -16,6 +16,10 @@ Specifications for cmdse: the search engine of bash commands
 
 `Feature-rich, semantic-wise crowdourced knowledge hub and search engine for useful command-line snippets.`
 
+.. note:: See `github.com/cmdse/core <https://github.com/cmdse/core>`_ library for an implementation of thoses specifications.
+
+.. warning:: This document is a working draft and subject to heavy change in a near future.
+
 Introduction
 ############
 
