@@ -10,15 +10,15 @@ Synopsis
 
 .. code-block:: bash
 
-   $ cmdse [OPTIONS]... [QUERY]...
+   $ cmdse [-i | -c | -x] <QUERY OPERAND>...
 
-The default behaviour of :program:`cmdse` is to process ``[QUERY]`` operand and print the best-matched :term:`command snippets <command snippet>`.
+The default behaviour of :program:`cmdse` is to process ``<QUERY OPERAND>...`` operands and print the best-matched :term:`command snippets <command snippet>`.
 
 
-QUERY operand
+QUERY operands
 **********************
 
-The QUERY operand is a string composed of one to many words, amongst which :term:`query selectors <query selector>` and :term:`query literals <query literal>`.
+A QUERY operand is a string composed of one :term:`word`, amongst which :term:`query selectors <query selector>` and :term:`query literals <query literal>`.
 
 .. code-block:: bash
    :caption: Example with :term:`program query selector` and two :term:`query literals <query literal>`
