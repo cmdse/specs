@@ -21,9 +21,9 @@ QUERY operands
 A QUERY operand is a :term:`word` witch is evaluated either as a :term:`query selectors <query selector>` or a :term:`query literals <query literal>`.
 
 .. code-block:: bash
-   :caption: Example with :term:`program query selector` and two :term:`query literals <query literal>`
+   :caption: Example with a :term:`program query selector` and two :term:`query literals <query literal>`
 
-   :tar extract files
+   $ cmdse :tar extract files
 
 OPTIONS
 **********************
