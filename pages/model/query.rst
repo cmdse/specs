@@ -8,9 +8,9 @@ Definitions
 .. glossary::
   :sorted:
 
-  query litteral
-     The query answer will try to match any one of those provided litterals.
-     Such a litteral has the shape of any word that is not composed of special characters with the exception of ``-`` and ``_``.
+  query literal
+     The query answer will try to match any one of those provided literals.
+     Such a literal has the shape of any word that is not composed of special characters with the exception of ``-`` and ``_``.
 
   program query selector
      The empty :term:`query selector` which only selects :term:`command snippets <command snippet>` that call the program name given as query selector value.
@@ -50,7 +50,7 @@ Syntax
     LITERAL-CHAR             = UTF8-2 / UTF8-3 / UTF8-4 / ALPHA / DIGIT / HYPHEN / UNDERSCORE
                              ; UTF-8 alphanum character or hyphen or underscore
     LITERAL                  = 1*(LITERAL-CHAR)
-                             ; A litteral is a sequence of non-special, non-whitespace characters
+                             ; A literal is a sequence of non-special, non-whitespace characters
                              ; or hyphen or underscore
     SELECTOR-OPERATOR        = 1*(SELECTOR-CHAR)
     SELECTOR-VALUE           = 1*(SELECTOR-CHAR)

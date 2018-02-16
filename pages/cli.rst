@@ -18,10 +18,10 @@ The default behaviour of :program:`cmdse` is to process ``[QUERY]`` operand and 
 QUERY operand
 **********************
 
-The QUERY operand is a string composed of one to many words, amongst which :term:`query selectors <query selector>` and :term:`query litterals <query litteral>`.
+The QUERY operand is a string composed of one to many words, amongst which :term:`query selectors <query selector>` and :term:`query literals <query literal>`.
 
 .. code-block:: bash
-   :caption: Example with :term:`program query selector` and two :term:`query litterals <query litteral>`
+   :caption: Example with :term:`program query selector` and two :term:`query literals <query literal>`
 
    :tar extract files
 
@@ -47,7 +47,7 @@ Examples
 **********************
 
 .. code-block:: bash
-  :caption: Query matching litteral sequence "tar unpack"
+  :caption: Query matching literal sequence "tar unpack"
 
   $ cmdse tar unpack
   tar -xvf [resource-path.tar.gz]
@@ -78,7 +78,7 @@ Examples
   (V10>) Remove all existing images.
 
 .. code-block:: bash
-  :caption: Query restricted to "docker" program executable matching litteral sequence "remove all containers"
+  :caption: Query restricted to "docker" program executable matching literal sequence "remove all containers"
 
   $ cmdse :docker remove all containers
   docker rm $(docker ps -a -q)
