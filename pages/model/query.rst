@@ -63,6 +63,8 @@ Syntax
 List of selectors
 #################
 
+`to be written`
+
 .. todo::
 
   Specify query selectors

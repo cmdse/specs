@@ -394,8 +394,14 @@ An :term:`option scheme` is a set of option expression variants which delimits t
 Analytic model
 ##############
 
+`to be written`
+
+.. todo:: Define command snippet analytic model
+
 Forks
 ##################
+
+`to be written`
 
 .. todo:: Define command snippet forks
 
