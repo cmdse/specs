@@ -1,0 +1,22 @@
+\documentclass[varwidth=100cm]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage{csquotes}
+\usepackage{algpseudocode}
+
+\begin{document}
+\begin{algorithmic}[1]
+  \Require{$token.type$ is not \enquote{semantic}}
+  \Statex
+  \Function{checkEndOfOptions}{$tokenList$}
+      \For{$token$, $index$ \textrm{ in } $tokenList$}
+          \If{$token.type$ is \textrm{\enquote{END\_OF\_OPTIONS}}}
+              \For{$i$,  $index \leq i \leq tokenList.length$, $i++$}
+                  \State{$tokenList[i].semanticCandidates \gets [\textrm{\enquote{OPERAND}}]$}
+                  \State{$convertToSemantic(tokenList[i])$}
+              \EndFor
+          \State{\textbf{break}}
+          \EndIf
+      \EndFor
+  \EndFunction
+\end{algorithmic}
+\end{document}

@@ -1,0 +1,35 @@
+\documentclass[varwidth=100cm]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage{csquotes}
+\usepackage{algpseudocode}
+
+\begin{document}
+\begin{algorithmic}[1]
+\Statex
+\Function{parse}{$tokenList$, $programInterfaceModel$}
+  \State{$previousConversions \gets 1$}
+  \State{$conversions \gets 1$}
+  \State{$optionDescriptions \gets programInterfaceModel.optionDescriptions$}
+  \State{$optionScheme \gets programInterfaceModel.optionScheme$}
+
+  \State{$checkEndOfOptions(tokenList)$}
+  \Repeat
+    \State{$previousConversions \gets conversions$}
+    \State{$conversions \gets 0$}
+    \For{$token$, $index$ \textrm{ in } $tokenList$ \textbf{when} $token.type$ is not \enquote{semantic}}
+    \State{$inferRight(token, tokenList)$}
+    \State{$inferLeft(token, tokenList)$}
+    \If{$token.type$ is \enquote{option part}}
+        \State{$tokenConverted \gets token.matchOptionDescription(optionDescriptions)$}
+        \If{not $tokenConverted$}
+            \State{$token.reduceCandidatesWithScheme(optionScheme)$}
+        \EndIf
+    \EndIf
+    \If{$token.type$ is \enquote{semantic}}
+        \State{$conversions ++$}
+    \EndIf
+    \EndFor
+  \Until{$previousConversions$ is $0$ \textbf{and} $conversions$ is $0$}
+\EndFunction
+\end{algorithmic}
+\end{document}

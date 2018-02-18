@@ -1,0 +1,18 @@
+\documentclass[varwidth=100cm]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage{csquotes}
+\usepackage{algpseudocode}
+
+\begin{document}
+\begin{algorithmic}[1]
+  \Require{$token.type$ is not \enquote{semantic}}
+  \Statex
+  \Function{convertToSemantic}{$token$}
+      \If{$token.semanticCandidates.length$ is $1$}
+          \State{$token.type \gets token.semanticCandidates[0]$}
+          \State\Return{$true$}
+      \EndIf
+      \State\Return{$false$}
+  \EndFunction
+\end{algorithmic}
+\end{document}

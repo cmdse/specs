@@ -10,20 +10,20 @@ Synopsis
 
 .. code-block:: bash
 
-   $ cmdse [OPTIONS]... [QUERY]...
+   $ cmdse [-i | -c | -x] <QUERY>...
 
-The default behaviour of :program:`cmdse` is to process ``[QUERY]`` operand and print the best-matched :term:`command snippets <command snippet>`.
+The default behaviour of :program:`cmdse` is to process ``<QUERY>...`` operands and print the best-matched :term:`command snippets <command snippet>`.
 
 
-QUERY operand
+QUERY operands
 **********************
 
-The QUERY operand is a string composed of one to many words, amongst which :term:`query selectors <query selector>` and :term:`query litterals <query litteral>`.
+A QUERY operand is a :term:`word` witch is evaluated either as a :term:`query selectors <query selector>` or a :term:`query literals <query literal>`.
 
 .. code-block:: bash
-   :caption: Example with :term:`program query selector` and two :term:`query litterals <query litteral>`
+   :caption: Example with a :term:`program query selector` and two :term:`query literals <query literal>`
 
-   :tar extract files
+   $ cmdse :tar extract files
 
 OPTIONS
 **********************
@@ -47,7 +47,7 @@ Examples
 **********************
 
 .. code-block:: bash
-  :caption: Query matching litteral sequence "tar unpack"
+  :caption: Query matching literal sequence "tar unpack"
 
   $ cmdse tar unpack
   tar -xvf [resource-path.tar.gz]
@@ -78,8 +78,23 @@ Examples
   (V10>) Remove all existing images.
 
 .. code-block:: bash
-  :caption: Query restricted to "docker" program executable matching litteral sequence "remove all containers"
+  :caption: Query restricted to "docker" program executable matching literal sequence "remove all containers"
 
   $ cmdse :docker remove all containers
   docker rm $(docker ps -a -q)
   (V10>) Remove all containers.
+
+
+Target platform requirements
+############################
+
+.. requirement:: target-platform-posix
+
+  The |app-name| command line tool targets modern Linux-GNU distributions with 3.X and 4.X kernels.
+
+.. requirement:: target-terminal
+
+  The |app-name| command line tool should be compatible with the following terminals:
+
+  - Any modern terminal emulator, such as ``xterm``, ``konsole``, ``GNOME terminal`` ...
+  - Linux virtual console

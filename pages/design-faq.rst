@@ -12,3 +12,8 @@ Other shell grammars support require big work for a limited payback since any co
   [ksh and fish] are cooler, newer shells that - as far as I know - are popular as interactive shells. But not so much for scripts that you maintain over time. Those tend to be in Bash or POSIX Shell, since you want the scripts to run on as many systems as possible.
 
   -- Daniel Martí
+
+Why are command snippets limited to US-ASCII encoding ?
+#######################################################
+
+Although :term:`utf-8` is getting widely popular and spread accross linux systems, our design goal to support the Linux virtual console and its limited compatibility with non-ASCII glyphs refrains us. Read the :doc:`/pages/character-encoding` section for more information.

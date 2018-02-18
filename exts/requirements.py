@@ -58,7 +58,7 @@ class RequirementDirective(BaseAdmonition):
         if isinstance(req, nodes.system_message):
             return [req]
 
-        req.insert(0, nodes.title(text=unicode('Requirement ') + u"\u2013" + ' ' + req_id.replace('-', ' ').title()))
+        req.insert(0, nodes.title(text=req_id.replace('-', ' ').title()))
         set_source_info(self, req)
 
         # Stash the target to be retrieved later in latex_visit_todo_node.

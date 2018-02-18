@@ -1,0 +1,47 @@
+@startuml
+!include styles.puml
+
+start
+(A)
+partition "Static shell parsing (A)" {
+  :(A.1) Static call expression identified by shell static
+  analyser;
+  :(A.2) Call expression expanded;
+  :(A.3) Call expression word-splitted;
+}
+(B)
+partition "Tokenization (B)" {
+  :(B.1) Arguments of call expression
+  converted to a list of
+  tokens with context-free types;
+  :(B.2) Check for the existence of a
+  Program Interface Model (PIM)
+  associated with the command identifier;
+  repeat
+  repeat
+  :(B.3) For each token which type is non-semantic,
+  transform its type to semantic when inference is possible.
+  Use PIM if available;
+  repeat while (at least one transformation\n occured in the last two parses?) is (yes)
+  if (token list contains\nnon-semantic tokens) then (yes)
+    :(B.4) Prompt the user to map
+    the leftmost non-semantic token
+    to a single semantic token ;
+  else (no)
+    (C)
+    detach
+
+  endif
+  repeat while (token list contains\nnon-semantic tokens) is (yes)
+}
+(C)
+partition "Assembly (C)" {
+  :(C.1) Reassemble tokens into structured option expressions
+  assignments, standalone option expressions and command
+  operands. Reassembling is done with splitting explicit
+  assignments and grouping implicit assignments;
+  :(C.2) Build call expression metadata from
+  assembled expressions;
+  stop
+}
+@enduml

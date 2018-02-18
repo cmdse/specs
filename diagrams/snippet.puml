@@ -1,0 +1,161 @@
+@startuml
+!include styles.puml
+
+class Program {
+  + String projectURL
+  + String commandIdentifier
+}
+
+class ProgramInterfaceModel {
+  Program program
+  OptionScheme optionScheme
+  OptionDescription[] optionDescriptions
+}
+
+enum TokenPositionalModel {
+  + Binding binding = 'UNKNOWN' | 'NONE' | 'LEFT' | 'RIGHT'
+  + Bool isSemantic
+  - Bool isOptionFlag
+  - Bool isOptionPart
+  ..models..
+  OPT_IMPLICIT_ASSIGNMENT_LEFT_SIDE
+  OPT_IMPLICIT_ASSIGNMENT_VALUE
+  STANDALONE_OPT_ASSIGNMENT
+  OPT_SWITCH
+  COMMAND_OPERAND
+  UNSET
+}
+
+enum OptionExpressionVariant {
+ Regex flagRegex
+ TokenType flagType
+ Optional<TokenType> valueType
+ OptionStyle style = 'POSIX' | 'XTOOLKIT' | 'GNU' | 'NONE'
+ .. variants ..
+ POSIX_SHORT_SWITCH
+ POSIX_STACKED_SHORT_SWITCHES
+ POSIX_SHORT_ASSIGNMENT
+ POSIX_SHORT_STICKY_VALUE
+ X2LKT_SWITCH
+ X2LKT_REVERSE_SWITCH
+ X2LKT_IMPLICIT_ASSIGNMENT
+ X2LKT_EXPLICIT_ASSIGNMENT
+ GNU_SWITCH
+ GNU_IMPLICIT_ASSIGNMENT
+ GNU_EXPLICIT_ASSIGNMENT
+ END_OF_OPTIONS
+ HEADLESS_OPTION
+}
+
+class OptionScheme {
+  OptionExpressionVariant[] variants
+}
+
+class OptionDescription {
+  + OptionExpressionVariants[] supportedVariants
+  + ValueModel valueModel = 'NONE' | 'OPTIONAL' | 'MANDATORY'
+  + String description
+  + Optional<TokenType> matchDescription(Token token)
+}
+
+class CallExpression {
+ + String commandIdentifier
+ + String[] arguments
+ + String raw
+ + LineRange lines
+}
+
+class Token {
+  + Int argumentPosition
+  + TokenType type
+  + String value
+  + Token boundTo
+  + OptionDescription optionDescription
+  + TokenType[] semanticCandidates
+  + PositionalModel[] posModelCandidates()
+  + Bool isOptionFlag()
+  + Bool isOptionPart()
+  + Bool isBoundToOneOf(Binding[] bindings)
+  + Bool isBoundTo(Binding binding)
+  + Bool matchOptionDescription(OptionDescription[] options)
+  + Bool reduceCandidatesWithScheme(OptionScheme scheme)
+}
+
+class CallExpressionMetadata {
+  CallExpression callExpression
+  OptionExpression[] optionExpressions
+  Operand[] operands
+  Token[] tokens
+}
+
+enum TokenType {
+  + PositionalModel posModel
+  + Bool isSemantic()
+}
+
+
+enum ContextFreeTokenType {
+  + SemanticTokenType[] semanticCandidates
+  -----
+  .. ContextFree and Semantic ..
+  X2LKT_REVERSE_SWITCH
+  GNU_EXPLICIT_ASSIGNMENT
+  X2LKT_EXPLICIT_ASSIGNMENT
+  END_OF_OPTIONS
+  .. Strictly ContextFree ..
+  ONE_DASH_WORD
+  ONE_DASH_LETTER
+  TWO_DASH_WORD
+  WORD
+}
+
+note "isOption* is resolved to type.posModel.isOption* \nwhen type.posModel is not UNSET or to true when \n '∀c ∈ {posModelCandidates}, c.isOption* = true', false otherwise.\nSeemingly, isBoundToOneOf is resolved to \n'token.type.posModelbinding.binding ∈ {bindings}'\nwhen posModel is not UNSET, otherwise to\n'{bindings} ∩ {token.posModelCandidates} = {bindings}'." as N2
+Token  .. N2
+N2 .. TokenPositionalModel
+
+
+enum SemanticTokenType {
+  + OptionExpressionVariant variant
+  -----
+  .. ContextFree and Semantic ..
+  X2LKT_REVERSE_SWITCH
+  GNU_EXPLICIT_ASSIGNMENT
+  X2LKT_EXPLICIT_ASSIGNMENT
+  END_OF_OPTIONS
+  .. Strictly Semantic ..
+  POSIX_SHORT_SWITCH
+  POSIX_STACKED_SHORT_SWITCHES
+  POSIX_SHORT_ASSIGNMENT_LEFT_SIDE
+  POSIX_SHORT_ASSIGNMENT_VALUE
+  POSIX_SHORT_STICKY_VALUE
+  GNU_IMPLICIT_ASSIGNMENT_LEFT_SIDE
+  GNU_IMPLICIT_ASSIGNMENT_VALUE
+  X2LKT_SWITCH
+  X2LKT_IMPLICIT_ASSIGNEMNT_LEFT_SIDE
+  X2LKT_IMPLICIT_ASSIGNMENT_VALUE
+  OPERAND
+  HEADLESS_OPTION
+}
+
+class Parser {
+  CallExpressionMetadata parse(CallExpression callExpression)
+}
+
+
+TokenType <|-- ContextFreeTokenType
+TokenType <|-- SemanticTokenType
+OptionDescription o-- ProgramInterfaceModel
+OptionExpressionVariant o-- OptionScheme
+OptionExpressionVariant o-- OptionDescription
+OptionExpressionVariant o--o TokenType
+OptionScheme o-- ProgramInterfaceModel
+TokenType   "1" *-- "*" Token
+TokenPositionalModel *-- TokenType
+OptionDescription "?" o-- "*" Token
+CallExpression o-- Parser
+Token o-- CallExpressionMetadata
+CallExpressionMetadata o-- Parser
+ProgramInterfaceModel o-- Parser
+Program o-- ProgramInterfaceModel
+
+@enduml

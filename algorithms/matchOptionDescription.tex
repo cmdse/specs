@@ -1,0 +1,22 @@
+\documentclass[varwidth=100cm]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage{csquotes}
+\usepackage{algpseudocode}
+
+\begin{document}
+\begin{algorithmic}[1]
+  \Require{$token.type$ is \enquote{option part} and not \enquote{semantic}}
+  \Statex
+  \Function{matchOptionDescription}{$token$, $optionDescriptions$}
+      \For{$description$ \textrm{in} $optionDescriptions$}
+          \State{$matchedType \gets description.matchDescription(token)$}
+          \If{$matchedType$ is \enquote{defined}}
+              \State{$token.semanticCandidates \gets [matchedType]$}
+              \State{$token.optionDescription \gets description$}
+              \State{$convertToSemantic(token)$}
+              \State{\textbf{break}}
+          \EndIf
+      \EndFor
+  \EndFunction
+\end{algorithmic}
+\end{document}
