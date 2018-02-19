@@ -7,6 +7,8 @@ Manparse
 ``manparse`` is a tool to extract a :term:`program interface model` from man-pages.
 It uses `doclifter <https://gitlab.com/esr/doclifter>`_ from Eric S. Raymond which converts man pages to `DocBook <http://docbook.org>`_ xml files.
 Those files already hold a good level of semantics, and ``manparse`` will do its best to grab as much information as possible.
+The :term:`program interface model` should be serialized to be consumed by other tools.
+Serialization format has not yet been chosen but it will likely be JSON + `JSON Schema <http://json-schema.org/>`_.
 
 CLI overview
 ############

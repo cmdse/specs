@@ -68,16 +68,16 @@ table, .literal-block-wrapper.docutils.container {
 }
 
 .xref.std.std-term {
-  color: #545353;
+  color: #E74C3C;
   font-style: italic;
 }
 
 .xref.std.std-term:visited {
-  color: #545353;
+  color: #E74C3C;
 }
 
 .xref.std.std-term:hover {
-  color: unset;
+  color: #d87211;
 }
 
 .rst-content .docutils.footnote {

@@ -231,11 +231,11 @@ Option expressions syntax
 Styles
 ======
 
-Three option expression variants exists in the unix world.
+Three option styles exists in the unix world.
 
 #. `POSIX Style <http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap12.html>`_
 #. `GNU Style <https://www.gnu.org/prep/standards/html_node/Command_002dLine-Interfaces.html>`_
-#. X Toolkit Style
+#. `X Toolkit Style <http://www.catb.org/esr/writings/taoup/html/ch10s05.html>`_
 
 In the :numref:`option-expression-variants`, different option expression variants are listed and their corresponding style.
 
@@ -246,7 +246,7 @@ In the :numref:`option-expression-variants`, different option expression variant
 
   * - | Expression variant
       | assign. value in "<>"
-    - Reference
+    - Variant
     - Description
     - Style
     - Prevalence
@@ -267,7 +267,7 @@ In the :numref:`option-expression-variants`, different option expression variant
     - Very common
   * - ``-o<value>``
     - ``POSIX_SHORT_STICKY_VALUE``
-    - One-letter option switch with sticky value
+    - One-letter option switch with integer sticky value
     - POSIX
     - Rare
   * - ``-option``
@@ -320,7 +320,7 @@ In the :numref:`option-expression-variants`, different option expression variant
 Option schemes
 ==============
 
-An :term:`option scheme` is a set of option expression variants which delimits the types of options supported by a :term:`command identifier`, see examples in :numref:`option-schemes`.
+An :term:`option scheme` is a set of :term:`option expression variants <option expression variant>` which delimits the option expressions supported by a :term:`command identifier`, see examples in :numref:`option-schemes`.
 
 .. _option-schemes:
 .. list-table:: List of option scheme presets
@@ -438,10 +438,10 @@ Definitions
   command snippet metadata
     [|app-name|] Structured data about a :term:`command snippet`. Such information may be comprised of the following fields:
 
-    * a list of :term:`program interface models <program interface model>` reffered to in the snippet
-    * text description of the snippet
-    * a list of tags applied to the snippet
-    * a list of :term:`command parameters <command parameter>` consisting each of a name, a description field and an optional default value
+    * a list of :term:`program interface models <program interface model>` reffered to in the snippet;
+    * text description of the snippet;
+    * a list of tags applied to the snippet;
+    * a list of :term:`command parameters <command parameter>` consisting each of a name, a description field and an optional default value.
 
   command parameter
     [|app-name|] A :term:`command snippet` parameter is a string which should be substituted with user input when the corresponding snippet is invoked.
@@ -453,10 +453,27 @@ Definitions
     [Unix shells] The name of a :term:`program executable` file that the shell will try to locate with :envvar:`PATH` environment variable.
 
   program interface model
-    [|app-name|] Structured data describing the command line interface capabilities of a :term:`program executable` identified by its :term:`program identifier`. The capabilities are defined through an :term:`option scheme`, synopsis, that is a set of supported options and their style, and one or many :term:`operands <operand>`. Those are defined for a peculiar :term:`version range`.
+    [|app-name|] Structured data describing the command line interface capabilities of a :term:`program executable` identified by its :term:`program identifier`. The capabilities are defined through:
+
+    - an :term:`option scheme`;
+    - a set of :term:`synopsis`;
+    - an :term:`option description model`.
+
+    Those are defined for a peculiar :term:`version range`.
+
+  option expression variant
+      [|app-name|] A pattern to recognize one or many arguments as members of an option flag or option assignment (see :numref:`option-expression-variants`).
+
+  option description
+    [|app-name|] Structured data composed of a description text field and a collection of match models.
+    Each match model is related to an :term:`option expression variant` and has a one-or-two groups regular expression.
+    When two groups can be matched, the latest is the option parameter of an explicit option assignments.
+
+  option description model
+   [|app-name|] An option description model is a set of :term:`option descriptions <option description>`.
 
   option scheme
-    [|app-name|] A set of option expression variants supported by a program command line interface (see :numref:`option-expression-variants`).
+    [|app-name|] A set of :term:`option expression variants <option expression variant>` supported by a program command line interface (see :numref:`option-expression-variants`).
 
   synopsis
     [Unix shells] A text pattern describing a set of possible :term:`call expressions <call expression>`.
