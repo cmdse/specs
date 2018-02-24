@@ -43,6 +43,8 @@ extensions = [
     'requirements'
 ]
 
+html_logo = "_static/cmdse.ico.svg"
+
 rst_epilog = """
 
 .. |project-name| replace:: ``cmdse``

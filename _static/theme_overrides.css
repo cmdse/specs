@@ -184,3 +184,8 @@ body {
   display: inline-block !important;
   visibility: visible !important;
 }
+
+.wy-side-nav-search > a img.logo {
+  width: 128px;
+  height: 128px;
+}
