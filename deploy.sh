@@ -1,14 +1,13 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC2181
 
 BUILD_DIR='./_build'
-GIT_DEPLOY_DIR="./_build/html"
 GIT_DEPLOY_BRANCH="master"
 GIT_DEPLOY_REPO="git@github.com:cmdse/cmdse.github.io.git"
 export SPHINX_PRODUCTION=1
 
 set -o errexit #abort if any command fails
 me=$(basename "$0")
-
 help_message="\
 Usage: $me [-c FILE] [<options>]
 Deploy generated files to a git branch.
@@ -17,7 +16,8 @@ Options:
 
   -h, --help               Show this help information.
   -v, --verbose            Increase verbosity. Useful for debugging.
-  -e, --allow-empty        Allow deployment of an empty directory.
+  -s, --skip-build         Skip the SPHINX build phase
+  -k, --keep-temp          Don't delete temporary folder on exit
   -m, --message MESSAGE    Specify the message used when committing on the
                            deploy branch.
   -n, --no-hash            Don't append the source commit's hash to the deploy
@@ -28,7 +28,7 @@ Options:
 
 Variables:
 
-  GIT_DEPLOY_DIR      Folder path containing the files to deploy.
+  BUILD_DIR           Relative or absolute path to SPHINX build directory
   GIT_DEPLOY_BRANCH   Commit deployable files to this branch.
   GIT_DEPLOY_REPO     Push the deploy branch to this repository.
 
@@ -37,7 +37,21 @@ overridden by environment variables. Any environment variables are overridden
 by values set in a '.env' file (if it exists), and in turn by those set in a
 file specified by the '--config-file' option."
 
-parse_args() {
+finish() {
+  if [ -d "$temp_folder" ] && [ "$should_delete_temp" == "true" ] ; then
+    rm -rf "$temp_folder"
+    echo "Clean up temporary folder"
+  fi
+}
+
+trap finish EXIT
+
+
+git_deploy() {
+  (cd "$deploy_directory" && git "$@")
+}
+
+init() {
 	# Set args from a local environment file.
 	if [ -e ".env" ]; then
     # shellcheck source=/dev/null
@@ -50,19 +64,21 @@ parse_args() {
 		source "$2"
 		shift 2
 	fi
-
-	# Parse arg flags
+  # Parse arg flags
 	# If something is exposed as an environment variable, set/overwrite it
 	# here. Otherwise, set/overwrite the internal variable instead.
 	while : ; do
 		if [[ $1 = "-h" || $1 = "--help" ]]; then
 			echo "$help_message"
-			return 0
+			exit 0
 		elif [[ $1 = "-v" || $1 = "--verbose" ]]; then
 			verbose=true
 			shift
-		elif [[ $1 = "-e" || $1 = "--allow-empty" ]]; then
-			allow_empty=true
+		elif [[ $1 = "-s" || $1 = "--skip-build" ]]; then
+			skip_build=true
+			shift
+		elif [[ $1 = "-k" || $1 = "--keep-temp" ]]; then
+			should_delete_temp=false
 			shift
 		elif [[ ( $1 = "-m" || $1 = "--message" ) && -n $2 ]]; then
 			commit_message=$2
@@ -75,13 +91,19 @@ parse_args() {
 		fi
 	done
 
+	# Parse arg flags
+	# If something is exposed as an environment variable, set/overwrite it
+	# here. Otherwise, set/overwrite the internal variable instead.
+
 	# Set internal option vars from the environment and arg flags. All internal
 	# vars should be declared here, with sane defaults if applicable.
 
 	# Source directory & target branch.
   build_dir=${BUILD_DIR}
-	deploy_directory=${GIT_DEPLOY_DIR:-dist}
 	deploy_branch=${GIT_DEPLOY_BRANCH:-gh-pages}
+
+  # Skip SPHINX build
+  skip_build=${skip_build:-false}
 
 	#if no user identity is already set in the current git environment, use this:
 	default_username=${GIT_DEPLOY_USERNAME:-deploy.sh}
@@ -92,107 +114,128 @@ parse_args() {
 
 	#append commit hash to the end of message by default
 	append_hash=${GIT_DEPLOY_APPEND_HASH:-true}
+  build_root="html"
+  should_delete_temp=${should_delete_temp:-true}
+  deploy_directory=""
+  temp_folder=""
 }
 
 build_deploy_folder() {
   if [ -d "$build_dir" ]; then
     rm -rf "$build_dir"
   fi
-  make html
+
+  if ! make html > /dev/null ; then
+    echo Aborting due to failure in building project to html >&2
+    exit 1
+  fi
+  echo "Sphinx build was successful :-)"
 }
+
+clone_in_temp_folder() {
+  temp_folder=$(mktemp -d -t 'deploy-cmdse.XXXXX')
+  if [ ! $? -eq 0 ] ; then
+    echo Aborting due to failure in creating a temporary folder >&2
+		exit 1
+  fi
+  echo "Created a temporary folder at $temp_folder"
+  deploy_directory="$temp_folder"
+  git clone -b "$deploy_branch" --quiet --single-branch "$repo" "$deploy_directory"
+  if [ ! $? -eq 0 ] ; then
+    echo Aborting due to failure in cloning git repository to temporary folder >&2
+		exit 1
+  fi
+  echo "Cloned $repo with branch $deploy_branch successfully"
+}
+
+copy_build_to_temp() {
+  rsync -rpc --ignore-times "$build_dir/$build_root/" "$temp_folder/"
+  if [ ! $? -eq 0 ] ; then
+    echo Aborting due to failure in copying build folder to git temp folder >&2
+    exit 1
+  fi
+  echo "Copied build folder to git temp folder successfully"
+}
+
+prompt_user_for_changes() {
+  echo "Git changes status:"
+  (cd "$deploy_directory" && git status)
+  git diff --exit-code
+  if [ $? -eq 0 ] ; then
+    echo "No changes to commit, aborting"
+    exit 1
+  fi
+  read -p "Do you want to stage, commit and push those changes? " -n 1 -r
+  echo    # (optional) move to a new line
+  if [[ $REPLY =~ ^[Yy]$ ]]; then
+      commit_and_push_changes
+      return 0
+  else
+    echo "Aborting..."
+    exit 1
+  fi
+}
+
+check_for_missing_git() {
+  if ! git diff --exit-code --quiet --cached; then
+    echo Aborting due to uncommitted changes in the index >&2
+    exit 1
+  fi
+}
+
+commit_and_push_changes() {
+  commit_title=$(git log -n 1 --format="%s" HEAD)
+  commit_hash=$(git log -n 1 --format="%H" HEAD)
+
+  #default commit message uses last title if a custom one is not supplied
+  if [[ -z $commit_message ]]; then
+    commit_message="publish: $commit_title"
+  fi
+
+  #append hash to commit message unless no hash flag was found
+  if [ "$append_hash" = true ]; then
+    commit_message="$commit_message"$'\n\n'"generated from commit $commit_hash"
+  fi
+
+  git_deploy add --all
+  commit+push
+}
+
 
 main() {
-	parse_args "$@"
-  build_deploy_folder
+	init "$@"
+  if [ "$skip_build" == "false" ]; then
+    build_deploy_folder
+  fi
+  clone_in_temp_folder
+  copy_build_to_temp
 	enable_expanded_output
-
-	if ! git diff --exit-code --quiet --cached; then
-		echo Aborting due to uncommitted changes in the index >&2
-		return 1
-	fi
-
-	commit_title=$(git log -n 1 --format="%s" HEAD)
-	commit_hash=$(git log -n 1 --format="%H" HEAD)
-
-	#default commit message uses last title if a custom one is not supplied
-	if [[ -z $commit_message ]]; then
-		commit_message="publish: $commit_title"
-	fi
-
-	#append hash to commit message unless no hash flag was found
-	if [ $append_hash = true ]; then
-		commit_message="$commit_message"$'\n\n'"generated from commit $commit_hash"
-	fi
-
-	previous_branch=$(git rev-parse --abbrev-ref HEAD)
-
-	if [ ! -d "$deploy_directory" ]; then
-		echo "Deploy directory '$deploy_directory' does not exist. Aborting." >&2
-		return 1
-	fi
-
-	# must use short form of flag in ls for compatibility with OS X and BSD
-	if [[ -z $(ls -A "$deploy_directory" 2> /dev/null) && -z $allow_empty ]]; then
-		echo "Deploy directory '$deploy_directory' is empty. Aborting. If you're sure you want to deploy an empty tree, use the --allow-empty / -e flag." >&2
-		return 1
-	fi
-
-	if git ls-remote --exit-code "$repo" "refs/heads/$deploy_branch" ; then
-		# deploy_branch exists in $repo; make sure we have the latest version
-
-		disable_expanded_output
-		git fetch --force "$repo" "$deploy_branch:$deploy_branch"
-		enable_expanded_output
-	fi
-
-	# check if deploy_branch exists locally
-	if git show-ref --verify --quiet "refs/heads/$deploy_branch"
-	then incremental_deploy
-	else initial_deploy
-	fi
-
-	restore_head
-}
-
-initial_deploy() {
-	git --work-tree "$deploy_directory" checkout --orphan "$deploy_branch"
-	git --work-tree "$deploy_directory" add --all
-	commit+push
-}
-
-incremental_deploy() {
-	#make deploy_branch the current branch
-	git symbolic-ref HEAD "refs/heads/$deploy_branch"
-	#put the previously committed contents of deploy_branch into the index
-	git --work-tree "$deploy_directory" reset --mixed --quiet
-	git --work-tree "$deploy_directory" add --all
-
-	set +o errexit
-	diff=$(git --work-tree "$deploy_directory" diff --exit-code --quiet HEAD --)$?
-	set -o errexit
-	case $diff in
-		0) echo No changes to files in "$deploy_directory". Skipping commit.;;
-		1) commit+push;;
-		*)
-			echo git diff exited with code "$diff". Aborting. Staying on branch "$deploy_branch" so you can debug. To switch back to master, use: git symbolic-ref HEAD refs/heads/master && git reset --mixed >&2
-			return "$diff"
-			;;
-	esac
+  check_for_missing_git
+  prompt_user_for_changes
+  exit 0
 }
 
 commit+push() {
 	set_user_id
-	git --work-tree "$deploy_directory" commit -m "$commit_message"
+	git_deploy commit -m "$commit_message"
 
 	disable_expanded_output
+
 	#--quiet is important here to avoid outputting the repo URL, which may contain a secret token
-	git push --quiet "$repo" "$deploy_branch"
+	git_deploy push --quiet "$repo" "$deploy_branch"
+  if [ $? -eq 0 ] ; then
+    echo "Successfully pushed moficiation to remote $repo:$deploy_branch"
+  else
+    echo "Failed to push modifications, aborting..." >&2
+    exit 1
+  fi
+
 	enable_expanded_output
 }
 
 #echo expanded commands as they are executed (for debugging)
 enable_expanded_output() {
-	if [ $verbose ]; then
+	if [ "$verbose" ]; then
 		set -o xtrace
 		set +o verbose
 	fi
@@ -200,7 +243,7 @@ enable_expanded_output() {
 
 #this is used to avoid outputting the repo URL, which may contain a secret token
 disable_expanded_output() {
-	if [ $verbose ]; then
+	if [ "$verbose" ]; then
 		set +o xtrace
 		set -o verbose
 	fi
@@ -208,22 +251,11 @@ disable_expanded_output() {
 
 set_user_id() {
 	if [[ -z $(git config user.name) ]]; then
-		git config user.name "$default_username"
+		git_deploy config user.name "$default_username"
 	fi
 	if [[ -z $(git config user.email) ]]; then
-		git config user.email "$default_email"
+		git_deploy config user.email "$default_email"
 	fi
-}
-
-restore_head() {
-	if [[ $previous_branch = "HEAD" ]]; then
-		#we weren't on any branch before, so just set HEAD back to the commit it was on
-		git update-ref --no-deref HEAD "$commit_hash" "$deploy_branch"
-	else
-		git symbolic-ref HEAD "refs/heads/$previous_branch"
-	fi
-
-	git reset --mixed
 }
 
 filter() {
