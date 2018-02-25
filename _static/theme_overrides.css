@@ -188,4 +188,7 @@ body {
 .wy-side-nav-search > a img.logo {
   width: 128px;
   height: 128px;
+  background: white;
+  border-radius: 50%;
+  padding: 0;
 }
