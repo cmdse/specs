@@ -26,6 +26,12 @@ from docutils.parsers.rst.roles import set_classes
 from sphinx.roles import XRefRole
 from sphinx import addnodes
 from sphinx.util import ws_re
+from sphinx.util.texescape import tex_escape_map
+
+# TODO Handle cross-refs requirement in Latex
+# - Define a requirementRole class as node
+# - Register node + visitors
+# - Add node to XRef instanciation
 
 class requirement(nodes.Admonition, nodes.Element):
     pass
@@ -62,7 +68,7 @@ class RequirementDirective(BaseAdmonition):
         set_source_info(self, req)
 
         # Stash the target to be retrieved later in latex_visit_todo_node.
-        # req['targetref'] = '%s:%s' % (environement.docname, targetid)
+        req['targetref'] = '%s:%s' % (environement.docname, targetid)
         targetnode = nodes.target('', '', ids=[targetid])
         if not hasattr(environement, 'requirements_list'):
             environement.requirements_list = []
@@ -106,7 +112,6 @@ class RequirementXRefRole(XRefRole):
     def result_nodes(self, document, env, node, is_ref):
         # type: (nodes.document, BuildEnvironment, nodes.Node, bool) -> Tuple[List[nodes.Node], List[nodes.Node]]  # NOQA
         target =  node['reftarget']
-        print 'IS REF %s' % is_ref
         if not is_ref:
             warnings.warn('No requirement reference found for %s' % node['refdoc'])
             return [node], []
@@ -122,11 +127,27 @@ class RequirementXRefRole(XRefRole):
             pass
         return [newnode], []
 
+def latex_visit_requirement_node(self, node):
+    # type: (nodes.NodeVisitor, todo_node) -> None
+    title = node.pop(0).astext().translate(tex_escape_map)
+    self.body.append(u'\n\\begin{sphinxadmonition}{note}{')
+    # If this is the original todo node, emit a label that will be referenced by
+    # a hyperref in the todolist.
+    target = node.get('targetref')
+    if target is not None:
+        self.body.append(u'\\label{%s}' % target)
+    self.body.append('%s:}' % title)
+
+
+def latex_depart_requirement_node(self, node):
+    # type: (nodes.NodeVisitor, todo_node) -> None
+    self.body.append('\\end{sphinxadmonition}\n')
+
 def setup(app):
     app.add_role('req', RequirementXRefRole(innernodeclass=nodes.emphasis))
     app.add_node(requirement,
                  html=(visit_requirement_node, depart_requirement_node),
-                 latex=(visit_requirement_node, depart_requirement_node),
+                 latex=(latex_visit_requirement_node, latex_depart_requirement_node),
                  text=(visit_requirement_node, depart_requirement_node))
 
     app.add_directive('requirement', RequirementDirective)
