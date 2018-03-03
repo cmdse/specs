@@ -162,7 +162,7 @@ prompt_user_for_changes() {
   (cd "$deploy_directory" && git status)
   git diff --exit-code --quiet
   if [ $? -eq 0 ] ; then
-    echo "No changes to commit, aborting"
+    echo "No changes to commit, aborting" >&2
     exit 1
   fi
   read -p "Do you want to stage, commit and push those changes? " -n 1 -r
@@ -171,7 +171,7 @@ prompt_user_for_changes() {
       commit_and_push_changes
       return 0
   else
-    echo "Aborting..."
+    echo "Aborting..." >&2
     exit 1
   fi
 }
