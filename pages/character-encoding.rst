@@ -8,46 +8,6 @@ Good reads
 - `The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Unicode and Character Sets (No Excuses!) <http://www.joelonsoftware.com/articles/Unicode.html>`_
 - `String and charset in Go <https://blog.golang.org/strings>`_
 
-Definitions
-###########
-
-.. glossary::
-
-  string
-    An arbitrary sequence of bytes. Note that with this definition, a string alone is not sufficient to get a textual representation. A :term:`charset` and its :term:`encoding` must be provided along.
-
-  string literal
-    A :term:`string` with valid :term:`utf-8` sequences.
-
-  glyph
-    The non-reductable sum of pixels corresponding to a representation of it's corresponding :term:`character symbol(s) <character symbol>`.
-
-  character symbol
-  character literal
-    A unique element in a :term:`charset`.
-
-  character
-    The meaning of character is loose. It can either mean a :term:`glyph` or a :term:`character literal`, which is not the same since a glyph can be the result of merging two literals as it often happens with dead keystrokes.
-    For example, pressing :kbd:`\`` followed by :kbd:`a` will result in *à* glyph, but in the UTF-8 encoding, is not the same as *à* symbol.
-
-  charset
-    Strictly saying, a set of symbols that can be used. Often confused with :term:`encoding`.
-
-  encoding
-    The in-memory representation of a :term:`charset`.
-
-  rune
-  code point
-    A representation in the form of character of a unicode byte sequence.
-    Rune is the Go synonym for a code point.
-
-  utf-8
-    An :term:`encoding` for the :linuxman:`unicode(7)` :term:`charset`. See :linuxman:`utf-8(7)`.
-
-  ucs-2
-    An :term:`encoding` for a subset of the `Unicode <https://en.wikipedia.org/wiki/Unicode>`_ :term:`charset`. This subset is known as the Basic Multilingual Plane and is composed of the first 65,536 :term:`code points <code point>`. This encoding uses 2-bytes for each character.
-
-
 Linux terminal and encoding
 ###########################
 
