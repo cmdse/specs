@@ -160,7 +160,7 @@ copy_build_to_temp() {
 prompt_user_for_changes() {
   echo "Git changes status:"
   (cd "$deploy_directory" && git status)
-  git diff --exit-code
+  git diff --exit-code --quiet
   if [ $? -eq 0 ] ; then
     echo "No changes to commit, aborting"
     exit 1
