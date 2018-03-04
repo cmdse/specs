@@ -6,7 +6,7 @@ GIT_DEPLOY_BRANCH="master"
 GIT_DEPLOY_REPO="git@github.com:cmdse/cmdse.github.io.git"
 export SPHINX_PRODUCTION=1
 
-set -o errexit #abort if any command fails
+#set -o errexit #abort if any command fails
 me=$(basename "$0")
 help_message="\
 Usage: $me [-c FILE] [<options>]
@@ -158,13 +158,13 @@ copy_build_to_temp() {
 }
 
 prompt_user_for_changes() {
-  echo "Git changes status:"
-  (cd "$deploy_directory" && git status)
   git diff --exit-code --quiet
-  if [ $? -eq 0 ] ; then
+  status=$?
+  if [ $status -eq 0 ] ; then
     echo "No changes to commit, aborting" >&2
     exit 1
   fi
+  (cd "$deploy_directory" && git status)
   read -p "Do you want to stage, commit and push those changes? " -n 1 -r
   echo    # (optional) move to a new line
   if [[ $REPLY =~ ^[Yy]$ ]]; then
@@ -209,8 +209,8 @@ main() {
   fi
   clone_in_temp_folder
   copy_build_to_temp
-	enable_expanded_output
-  check_for_missing_git
+	#enable_expanded_output
+  # check_for_missing_git
   prompt_user_for_changes
   exit 0
 }
