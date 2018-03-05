@@ -91,16 +91,6 @@ table, .literal-block-wrapper.docutils.container {
   background: #e7f2fa;
 }
 
-.rst-content .container.definition {
-  border-left: 10px solid #2980B9;
-  padding-left: 24px;
-  position: relative;
-  margin-left: 48px;
-  line-height: 1;
-  margin-bottom: 24px;
-  margin-right: 48px;
-}
-
 .rst-content .figure {
   display: flex;
   flex-direction: column;
@@ -176,6 +166,42 @@ table, .literal-block-wrapper.docutils.container {
   font-style: italic;
 }
 
+.rst-content .container.synopsis {
+  position: relative;
+  margin-left: 48px;
+  line-height: 1;
+  margin-bottom: 24px;
+  margin-right: 48px;
+  font-family: monospace;
+  font-size: 16px;
+}
+
+.rst-content .container.synopsis.big {
+  font-size: 24px;
+}
+
+.rst-content .container.definition {
+  border-left: 10px solid #2980B9;
+  padding-left: 24px;
+  position: relative;
+  margin-left: 48px;
+  line-height: 1;
+  margin-bottom: 24px;
+  margin-right: 48px;
+}
+
+.rst-content .glossary.docutils dt {
+  border-left: 5px solid #2980B9;
+  padding-left: 24px;
+}
+
+.rst-content .glossary.docutils dd {
+  border-left: 5px solid #2980B9;
+  padding-left: 24px;
+  position: relative;
+  margin-left: 0;
+}
+
 .rst-content .container.quote .attribution {
   font-weight: bold;
   position: relative;
@@ -225,7 +251,6 @@ body {
   padding: 0;
 }
 
-.command {
+.rst-content .program, .rst-content .command {
   font-family: monospace;
-  font-weight: normal;
 }

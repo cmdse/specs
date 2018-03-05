@@ -8,11 +8,11 @@ Usage
 Synopsis
 **********************
 
-.. code-block:: bash
+.. container:: synopsis big
 
-   $ cmdse [-i | -c | -x] <QUERY>...
+   cmdse [-i|-c|-e] <QUERY>...
 
-The default behaviour of :program:`cmdse` is to process ``<QUERY>...`` operands and print the best-matched :term:`command snippets <command snippet>`.
+The default behaviour of |app-name| is to process ``<QUERY>...`` operands and print the best-matched :term:`command snippets <command snippet>`.
 
 
 QUERY operands
@@ -38,9 +38,9 @@ OPTIONS
 
   **C**\ opy the first result command snippet in the clipboard.
 
-.. option:: -x, --execute-first
+.. option:: -e, --execute-first
 
-  Launch interactive mode and prompt the user if he wants to e\ **x**\ ecute the first :term:`command snippet` found with the joint query.
+  Launch interactive mode and prompt the user if he wants to **e**\ xecute the first :term:`command snippet` found with the joint query.
   For any :term:`command parameter`, the user will be prompt to provide an input.
 
 Examples

@@ -11,7 +11,7 @@ A :term:`utility interface model` is defined as follow:
   - a set of :term:`synopses <synopsis>` of minimum length one;
   - an :term:`option description model` which is a set of options and their related expressions;
   - an :term:`option scheme`;
-  - an optional set of :term:`sub-commands`.
+  - an optional set of :term:`sub-commands <sub-command>`.
 
   Those are defined for a peculiar :term:`version range`.
   The term “utility” is directly extracted from the POSIX.1-2008 reference\ [#posix-synopsis]_.
@@ -22,8 +22,9 @@ Synopses
 
 POSIX.1-2008 reference\ [#posix-synopsis]_ defines strictly the syntax of a utility (or command) synopsis:
 
-   **utility_name[**-a\ **][**-b\ **][**-c option_argument\ **]**
-       **[**-d\ **|**-e\ **][**-f\ **[**\ option_argument\ **]][**\ operand\ **...]**
+.. container:: synopsis
+
+   **utility_name[**-a\ **][**-b\ **][**-c option_argument\ **][**-d\ **|**-e\ **][**-f\ **[**\ option_argument\ **]][**\ operand\ **...]**
 
 This standard syntax definition is globally well defined. :command:`doclifter`\ [#doclifter-project]_ uses it to generate docbook files with ``<refsynopsis>`` tags:
 
@@ -71,17 +72,25 @@ POSIX.1-2008 Strict Rules
 - Exclusive expressions are denoted with the pipe ``|`` character.
 - Alternatively, mutually-exclusive options and operands may be listed with multiple synopsis lines. For example:
 
-    | **utility_name -d[**-a\ **][**-c option_argument\ **][**\ operand\ **...]**
-    | **utility_name[**-a\ **][**-b\ **][**\ operand\ **...]**
+  .. container:: synopsis
+
+     | **utility_name -d[**-a\ **][**-c option_argument\ **][**\ operand\ **...]**
+     | **utility_name[**-a\ **][**-b\ **][**\ operand\ **...]**
 
 - Repeatable expressions are followed up by ellipsis ``…`` or three dots character.
 - Names that require substitution could be enclosed in angle-braquets ``<>`` or embedded with underscore ``_`` characters (non-mandatory).
 - Utilities with many flags generally show all of the individual flags (that do not take option-arguments) grouped, as in:
 
+  .. container:: synopsis
+
      **utility_name** **[**-abcDxyz\ **][**\ -p arg\ **][**\ operand\ **]**
+
 - Utilities with very complex arguments may be shown as follows:
 
-    **utility_name [**\ options\ **][**\ operands\ **]**
+  .. container:: synopsis
+
+     **utility_name [**\ options\ **][**\ operands\ **]**
+
 - Unless otherwise specified, whenever an operand or option-argument is, or contains, a numeric value, the number is interpreted as a decimal integer.
 
 POSIX.1-2008 Guidance Rules

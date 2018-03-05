@@ -4,24 +4,23 @@ Manparse
 
 .. note:: The project is developped at `github.com/cmdse/manparse <https://github.com/cmdse/manparse>`_
 
-``manparse`` is a tool to extract a :term:`utility interface model` from man-pages.
+:command:`manparse` is a tool to extract a :term:`utility interface model` from man-pages.
 It uses :command:`doclifter` [#doclifter-official]_ from Eric S. Raymond which converts man pages to `DocBook <http://docbook.org>`_ xml files.
-Those files already hold a good level of semantics, and ``manparse`` will do its best to grab as much information as possible.
+Those files already hold a good level of semantics, and :command:`manparse` will do its best to grab as much information as possible.
 The :term:`utility interface model` should be serialized to be consumed by other tools.
 Serialization format has not yet been chosen but it will likely be JSON + `JSON Schema <http://json-schema.org/>`_.
 
-CLI overview
+Synopsis
 ############
 
-`to be written`
 
-.. todo :: Write manparse cli overview
+.. container:: synopsis big
 
-Synopsis
-========
+   manparse [-v|-q] files...
+
 
 Options
-=======
+############
 
 .. program:: manparse
 
@@ -29,27 +28,27 @@ Options
 
    Blah
 
-.. option:: -x, --silent
+.. option:: -q, --quiet
 
    Shhhht
 
 Implementation details
 ######################
 
-``manparse`` will pass through multiple steps to build up a :term:`utility interface model` from a manpage:
+:command:`manparse` will pass through multiple steps to build up a :term:`utility interface model` from a manpage:
 
 #. call ``doclifter`` to generate a docbook file in a temporary folder;
 #. unmarshall the docbook xml file;
 #. flatten subsections to raw text;
 #. extract the command synopses in a tree structure;
-#. run parse scenarios to extract a partial :term:`option description model` and eventually sub-commands;
+#. run parse scenarios to extract a partial :term:`option description model` and eventually :term:`sub-commands <sub-command>`;
 #. match synopses with :term:`option description model`, and when suitable infer a ``POSIX_STACK_SWITCH`` :term:`option expression variant`.
 
 
 Parse scenario
 ==============
 
-A parse scenario is an abstraction to leverage the numerous set of situations ``manparse`` can be exposed to.
+A parse scenario is an abstraction to leverage the numerous set of situations :command:`manparse` can be exposed to.
 
 Parse scenario execution is triggered when its associated prerequisites are met. Prerequisites are a set of conditions affecting:
 

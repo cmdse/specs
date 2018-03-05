@@ -8,7 +8,7 @@ General Requirements
 
 .. requirement:: target-shell
 
- The :term:`command snippets <command snippet>` handled by |app-name| should be of ``bash`` and ``POSIX`` shell dialects.
+ The :term:`command snippets <command snippet>` handled by |project-name| tools should be of ``bash`` and ``POSIX`` shell dialects.
 
 
 .. requirement:: command-snippet-endoding
@@ -38,7 +38,7 @@ Command snippet requirements
 Shell processing workflow
 #########################
 
-The way |app-name| handles snippets and extract a great deal of information to the end-user requires a good understanding on how unix shells process text into commands.
+The way |project-name| tools handle snippets and extract a great deal of information to the end-user requires a good understanding on how unix shells process text into commands.
 
 .. note::
 
@@ -121,9 +121,9 @@ Call expression structure
 
 .. note::
 
-  See the :numref:`call-expression-parsing` for details on how |app-name| should parse call expressions.
+  See the :numref:`call-expression-parsing` for details on how |project-name| tools should parse call expressions.
 
-|app-name| will provide a static analysis of given :term:`snippets <command snippet>` to infer some understanding of invoked :term:`utility executables <utility executable>` and their arguments. Given the dynamic nature of unix shell input processing and the context-dependent syntax analysis involved (:numref:`shell-processing-workflow`), there is no guarantee that there will be a perfect match between information gathered during static analysis and runtime effective invocations.
+|project-name| tooling will provide a static analysis of given :term:`snippets <command snippet>` to infer some understanding of invoked :term:`utility executables <utility executable>` and their arguments. Given the dynamic nature of unix shell input processing and the context-dependent syntax analysis involved (:numref:`shell-processing-workflow`), there is no guarantee that there will be a perfect match between information gathered during static analysis and runtime effective invocations.
 The "unit of work" to isolate such runtime invocations is reffered to as a :term:`call expression`.
 A :term:`call expression` is a section of the :term:`command snippet` close to the definition of a bash simple command [#bashman]_. Here is a classic example:
 
@@ -202,14 +202,14 @@ Command identifier
 A :term:`command identifier` will be ultimately resolved to a :term:`builtin command` or a :term:`utility name`.
 Within the unix system, the mapping between the :term:`command identifier` and the :term:`utility executable` is bijective, that is there is exactly one executable that can be matched from its identifier, and reciprocically, there is exactly one identifier that can be matched from an executable\ [#path-resolution]_.
 
-However, from |app-name| perspective, the association must be done with a loosly defined :term:`utility interface model` and is therefore non-bijective.
+However, from |project-name| perspective, the association must be done with a loosly defined :term:`utility interface model` and is therefore non-bijective.
 First, because multiple programs can hold the same :term:`utility name`. Second, because this mapping is done in the context of analysing a static :term:`call expression`, and the association will be considered valid for a peculiar :term:`version range` of the program supporting some set of options.
 
 Arguments
 =========
 
 Arguments are :term:`words <word>` following the :term:`command identifier`.
-Discriminating between option expressions and :term:`operands <operand>` and giving semantics to each argument is a central aspect of |app-name| to fulfill its pedagogical goal.
+Discriminating between option expressions and :term:`operands <operand>` and giving semantics to each argument is a central aspect of |project-name| to fulfill its pedagogical goal.
 
 
 Option expressions

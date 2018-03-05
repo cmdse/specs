@@ -32,7 +32,7 @@ The motivations behind the creation of |project-name| originates from a very sim
 
 The |project-name| program should meet the following requirements:
 
-* Provide a user-friendly command line tool to query linux-shell command snippets.
+* Provide a user-friendly |app-name| command line tool to query linux-shell command snippets.
 * Enable the user to query *what* he wants to do, and the search engine grabs the best-matched snippets.
 * Enable features to memorize the semantics of commonly used commands with mini-quizz.
 * Model rich meta-data on program arguments and options, allowing the user to learn the semantics of the programs and snippets he uses.

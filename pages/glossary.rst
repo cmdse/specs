@@ -64,7 +64,7 @@ Glossary
       - a set of :term:`synopses <synopsis>` of minimum length one;
       - an :term:`option description model` which is a set of options and their related expressions;
       - an :term:`option scheme`;
-      - an optional set of :term:`sub-commands`.
+      - an optional set of :term:`sub-commands <sub-command>`.
 
       Those are defined for a peculiar :term:`version range`.
       The term “utility” is directly extracted from the POSIX.1-2008 reference\ [#posix-synopsis]_.

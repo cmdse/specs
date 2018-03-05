@@ -46,8 +46,8 @@ extensions = [
 
 rst_epilog = """
 
-.. |project-name| replace:: ``cmdse``
-.. |app-name| replace:: **cmdse**
+.. |project-name| replace:: **cmdse**
+.. |app-name| replace:: :program:`cmdse`
 
 """
 
@@ -75,7 +75,7 @@ author = u'Jules Randolph'
 # built documents.
 #
 # The short X.Y version.
-version = u'0.0.1-draft.5'
+version = u'0.0.2-draft.1'
 # The full version, including alpha/beta/rc tags.
 release = version
 

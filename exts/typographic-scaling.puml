@@ -1,0 +1,15 @@
+@startuml
+!include styles.puml
+
+class TypographicScaling {
+  float baseValue
+  float ratio
+
+  float small
+  float normal
+  float big
+  float large
+  float huge
+}
+
+@enduml
