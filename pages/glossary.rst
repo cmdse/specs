@@ -50,10 +50,10 @@ Glossary
     A sub command is a utility argument which operates as the alias of an inner command. Exemple of such is :command:`git add` :linuxman:`git-add(1)`
 
   command identifier
-    [Unix shells] A command identifier is a word which maps to a set of instructions, either through a :term:`builtin command`, a declared function,  or with a :term:`utility executable`. See the POSIX.1-2008 section on command search and execution\ [#posix-search-execute]_.
+    [Unix shells] A command identifier is a word which maps to a set of instructions, either through a :term:`builtin command`, a declared function,  or with a :term:`utility name`.
 
   utility executable
-    [Unix shells] An executable file which supports positional text arguments.
+    [Unix shells] An executable file which supports positional text arguments. See the POSIX.1-2008 section on utility search and execution\ [#posix-search-execute]_.
 
   utility name
     [Unix shells] The basename of a :term:`utility executable` file that the shell will try to locate with :envvar:`PATH` environment variable.
@@ -101,7 +101,7 @@ Glossary
    [|project-name|] An option description model is a set of :term:`option descriptions <option description>`.
 
   option scheme
-    [|project-name|] A set of :term:`option expression variants <option expression variant>` supported by a program command line interface (see :numref:`option-expression-variants`).
+    [|project-name|] A set of :term:`option expression variants <option expression variant>` supported by a :term:`utility <utility name>` (see :numref:`option-expression-variants`).
 
   synopsis
     [Unix shells] A text pattern describing a set of possible :term:`call expressions <call expression>`.

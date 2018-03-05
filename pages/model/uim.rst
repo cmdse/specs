@@ -218,7 +218,7 @@ In the :numref:`option-expression-variants`, different option expression variant
 Option scheme
 #############
 
-An :term:`option scheme` is a set of :term:`option expression variants <option expression variant>` which delimits the option expressions supported by a :term:`command identifier`. A list of presets provided by |project-name| is shown in :numref:`option-schemes`.
+An :term:`option scheme` is a set of :term:`option expression variants <option expression variant>` which delimits the option expressions supported by a :term:`utility <utility name>`. A list of presets provided by |project-name| is shown in :numref:`option-schemes`.
 
 .. _option-schemes:
 .. list-table:: List of option scheme presets
