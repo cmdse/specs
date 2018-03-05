@@ -86,7 +86,7 @@ Some of these context-free token types overlap semantic token types, because the
     - yes
     - | ``[-opq]```
       | ``[-option]```
-    - * ``POSIX_STACKED_SHORT_SWITCHES``
+    - * ``POSIX_GROUPED_SHORT_FLAGS``
       * ``X2LKT_SWITCH``
       * ``X2LKT_IMPLICIT_ASSIGNEMNT_LEFT_SIDE``
   * - ``ONE_DASH_WORD``
@@ -201,7 +201,7 @@ In the :numref:`token-positional-model`, the first 5 models are applicable for s
   * - ``POSIX_SHORT_SWITCH``
     - ``[-o]``
     - ``OPT_SWITCH``
-  * - ``POSIX_STACKED_SHORT_SWITCHES``
+  * - ``POSIX_GROUPED_SHORT_FLAGS``
     - ``[-opq]``
     - ``OPT_SWITCH``
   * - ``POSIX_SHORT_ASSIGNMENT_LEFT_SIDE``
@@ -275,7 +275,7 @@ To get there, it will proceed with the following steps :
         If the token type is "option part", use the option descriptions from the PIM to try an exact match (:numref:`algo-match-option-description`).
         For example, the token is ``--reverse``, and the :term:`utility interface model` contains an option description that exactly match ``--reverse``.
         If no exact match is found, check for a pattern match with the option scheme (:numref:`algo-reduce-candidates-with-scheme`).
-        For example, if the token ``-pq`` is encountered, and the program :term:`option scheme` is "Linux-Standard-Explicit" (see :numref:`option-schemes`), the only possible mapping for ``ONE_DASH_WORD`` will be ``POSIX_STACKED_SHORT_SWITCHES``.
+        For example, if the token ``-pq`` is encountered, and the program :term:`option scheme` is "Linux-Standard-Explicit" (see :numref:`option-schemes`), the only possible mapping for ``ONE_DASH_WORD`` will be ``POSIX_GROUPED_SHORT_FLAGS``.
         Finally, increment *conversions* if the token type "is semantic".
 
 #. Until all tokens are of "semantic" type, prompt the user for a token type annotation and loop back at 3.2.

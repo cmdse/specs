@@ -256,7 +256,7 @@ In the :numref:`option-expression-variants`, different option expression variant
     - POSIX
     - Very common
   * - ``-opq``
-    - ``POSIX_STACKED_SHORT_SWITCHES``
+    - ``POSIX_GROUPED_SHORT_FLAGS``
     - One-letter option stack switch. This is equivalent to ``-o -p -q``.
     - POSIX
     - Common
@@ -333,13 +333,13 @@ An :term:`option scheme` is a set of :term:`option expression variants <option e
   * - POSIX-Strict
     - Option expressions can be can be composed solely with POSIX-styled variants.
     - * ``POSIX_SHORT_SWITCH``
-      * ``POSIX_STACKED_SHORT_SWITCHES``
+      * ``POSIX_GROUPED_SHORT_FLAGS``
       * ``POSIX_SHORT_ASSIGNMENT``
       * ``POSIX_END_OF_OPTIONS``
   * - Linux-Standard
     - Option expressions can be of any common GNU or POSIX-styled variants. Very often, one option has either one GNU and one POSIX variant, either one POSIX variant.
     - * ``POSIX_SHORT_SWITCH``
-      * ``POSIX_STACKED_SHORT_SWITCHES``
+      * ``POSIX_GROUPED_SHORT_FLAGS``
       * ``POSIX_SHORT_ASSIGNMENT``
       * ``GNU_SWITCH``
       * ``GNU_IMPLICIT_ASSIGNMENT``
@@ -348,7 +348,7 @@ An :term:`option scheme` is a set of :term:`option expression variants <option e
   * - Linux-Explicit
     - Option expressions can be of any common GNU or POSIX-styled variants with implicit assignments.
     - * ``POSIX_SHORT_SWITCH``
-      * ``POSIX_STACKED_SHORT_SWITCHES``
+      * ``POSIX_GROUPED_SHORT_FLAGS``
       * ``POSIX_SHORT_ASSIGNMENT``
       * ``GNU_SWITCH``
       * ``GNU_EXPLICIT_ASSIGNMENT``
@@ -356,7 +356,7 @@ An :term:`option scheme` is a set of :term:`option expression variants <option e
   * - Linux-Implicit
     - Option expressions can be of any common GNU or POSIX-styled variants with explicit assignments.
     - * ``POSIX_SHORT_SWITCH``
-      * ``POSIX_STACKED_SHORT_SWITCHES``
+      * ``POSIX_GROUPED_SHORT_FLAGS``
       * ``POSIX_SHORT_ASSIGNMENT``
       * ``GNU_SWITCH``
       * ``GNU_IMPLICIT_ASSIGNMENT``
