@@ -32,7 +32,7 @@ Tokenization
 
 The first step consists in creating a list of tokens that maps the command arguments (:numref:`call-expression-process-flow`, *item B.1*). The token types will be updated thanks to basic inference rules and command meta-information. These token types are first assigned to "context-free" tokens (see :numref:`context-free-tokens` for a listing). "Context-free" means that their nature can be captured without the need for information about their siblings or position, and is therefore trivial.
 
-In a second step (:numref:`call-expression-process-flow`, *item B.3*), token types are assigned to "semantic token type" values (:numref:`semantic-token-properties`) given some inference rules and information extracted from the :term:`utility interface model` (PIM, :numref:`call-expression-process-flow`, *item B.2*). The underlying algorithm is described in details in :numref:`option-parsing-algorithm`.
+In a second step (:numref:`call-expression-process-flow`, *item B.3*), token types are assigned to "semantic token type" values (:numref:`semantic-token-properties`) given some inference rules and information extracted from the :term:`utility interface model` (UIM, :numref:`call-expression-process-flow`, *item B.2*). The underlying algorithm is described in details in :numref:`option-parsing-algorithm`.
 
 When semantic type cannot be inferred, a prompt to the user is processed (:numref:`call-expression-process-flow`, *item B.4*).
 
@@ -265,14 +265,14 @@ The parser will hold in memory a list of tokens (:numref:`snippet-class-diagram`
 To get there, it will proceed with the following steps :
 
 #. Initiate the token list with the result of mapping arguments to context-free token generation.
-#. Fetch the :term:`utility interface model` (PIM) if it exists.
-#. Provide the list and the PIM as arguments of the *parse* function (:numref:`algo-parse`). Such function will do the following:
+#. Fetch the :term:`utility interface model` (UIM) if it exists.
+#. Provide the list and the UIM as arguments of the *parse* function (:numref:`algo-parse`). Such function will do the following:
 
    #. Check for the existence of an ``POSIX_END_OF_OPTIONS`` typed token (:numref:`algo-check-end-of-options`) and convert to operands all remaining tokens to the right.
    #. Repeat the following operation until the last two operations didn't turn out to at least one context-free to semantic conversion:
 
         For each non-semantic token, *inferRight* (:numref:`algo-infer-right`) and *inferLeft* (:numref:`algo-infer-left`). Those functions will try to infer the semantic type by checking its siblings'. For example, if the left sibling token type is ``X2LKT_IMPLICIT_ASSIGNEMNT_LEFT_SIDE``, the only possible type for this token would be ``X2LKT_IMPLICIT_ASSIGNMENT_VALUE``.
-        If the token type is "option part", use the option descriptions from the PIM to try an exact match (:numref:`algo-match-option-description`).
+        If the token type is "option part", use the option descriptions from the UIM to try an exact match (:numref:`algo-match-option-description`).
         For example, the token is ``--reverse``, and the :term:`utility interface model` contains an option description that exactly match ``--reverse``.
         If no exact match is found, check for a pattern match with the option scheme (:numref:`algo-reduce-candidates-with-scheme`).
         For example, if the token ``-pq`` is encountered, and the program :term:`option scheme` is "Linux-Standard-Explicit" (see :numref:`option-schemes`), the only possible mapping for ``ONE_DASH_WORD`` will be ``POSIX_GROUPED_SHORT_FLAGS``.

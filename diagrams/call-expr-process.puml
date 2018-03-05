@@ -15,13 +15,13 @@ partition "Tokenization (B)" {
   converted to a list of
   tokens with context-free types;
   :(B.2) Check for the existence of a
-  Program Interface Model (PIM)
+  Program Interface Model (UIM)
   associated with the command identifier;
   repeat
   repeat
   :(B.3) For each token which type is non-semantic,
   transform its type to semantic when inference is possible.
-  Use PIM if available;
+  Use UIM if available;
   repeat while (at least one transformation\n occured in the last two parses?) is (yes)
   if (token list contains\nnon-semantic tokens) then (yes)
     :(B.4) Prompt the user to map
