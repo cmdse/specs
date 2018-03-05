@@ -46,6 +46,9 @@ Glossary
   command
     [Unix shells] A command is a one-line processable text chunk\ [#bash-exceptions]_ to be converted in command invocation. Command invocation consists in passing to the operating system a file to be read and executed (extrapolated from the :term:`program identifier`) with a list of arguments (``argv``).
 
+  sub-command
+    A sub command is a utility argument which operates as the alias of an inner command. Exemple of such is :command:`git add` :linuxman:`git-add(1)`
+
   command identifier
     [Unix shells] A command identifier is a word which maps to a set of instructions, either through a :term:`builtin command`, a declared function,  or with a :term:`program executable`. See the POSIX.1-2008 section on command search and execution\ [#posix-search-execute]_.
 
@@ -78,11 +81,12 @@ Glossary
   program interface model
     [|app-name|] Structured data describing the command line interface capabilities of a :term:`program executable` identified by its :term:`program identifier`. The capabilities are defined through:
 
-    - an :term:`option scheme`;
-    - a set of :term:`synopsis`;
-    - an :term:`option description model`.
+      - a set of :term:`synopses <synopsis>` of minimum length one;
+      - an :term:`option description model` which is a set of options and their related expressions;
+      - an :term:`option scheme`;
+      - an optional set of :term:`sub-commands`.
 
-    Those are defined for a peculiar :term:`version range`.
+      Those are defined for a peculiar :term:`version range`.
 
   option expression variant
       [|app-name|] A pattern to recognize one or many arguments as members of an option flag or option assignment (see :numref:`option-expression-variants`).

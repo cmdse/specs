@@ -149,6 +149,31 @@ table, .literal-block-wrapper.docutils.container {
   margin-bottom: 24px;
 }
 
+.rst-content .quote::before {
+  position: absolute;
+  left: -25px;
+  top: 0;
+  content: "“";
+  font-size: 25px
+}
+
+.rst-content .quote {
+  position: relative;
+  margin-left: 48px;
+  line-height: 24px;
+  margin-bottom: 24px;
+  margin-right: 48px;
+}
+
+.rst-content .quote {
+  font-style: italic;
+}
+
+.rst-content .quote .attribution {
+  font-weight: bold;
+  position: relative;
+}
+
 .wy-table caption,.rst-content table.docutils caption,.rst-content table.field-list caption,.rst-content .figure .caption  {
     color: #000;
     font: italic 100%/1 arial,sans-serif;
@@ -191,4 +216,9 @@ body {
   background: white;
   border-radius: 50%;
   padding: 0;
+}
+
+.command {
+  font-family: monospace;
+  font-weight: normal;
 }

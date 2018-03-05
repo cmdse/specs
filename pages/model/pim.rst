@@ -2,16 +2,66 @@
 Program Interface Model
 #######################
 
+A program interface model is defined as follow:
+
+.. container:: quote
+
+  Structured data describing the command line interface capabilities of a :term:`program executable` identified by its :term:`program identifier`. The capabilities are defined through:
+
+  - a set of :term:`synopses <synopsis>` of minimum length one;
+  - an :term:`option description model` which is a set of options and their related expressions;
+  - an :term:`option scheme`;
+  - an optional set of :term:`sub-commands`.
+
+  Those are defined for a peculiar :term:`version range`.
+
 Synopses
 ########
 
-POSIX.1-2008 Strict Rules
-=========================
 
 POSIX.1-2008 reference\ [#posix-synopsis]_ defines strictly the syntax of a utility (or command) synopsis:
 
    **utility_name[**-a\ **][**-b\ **][**-c option_argument\ **]**
        **[**-d\ **|**-e\ **][**-f\ **[**\ option_argument\ **]][**\ operand\ **...]**
+
+This standard syntax definition is globally well defined. :command:`doclifter`\ [#doclifter-project]_ uses it to generate docbook files with ``<refsynopsis>`` tags:
+
+.. container:: quote
+
+   It lifts over **93%** of these pages without requiring any hand-hacking.
+
+He maintains a list of non-complying tools on a bare Ubuntu installation\ [#doclifter-patches]_, in which are described 10 errors regarding SYNOPSIS interpolation:
+
+.. code-block:: text
+
+    C	Broken command synopsis syntax. This may mean you're using a
+        construction in the command synopsis other than the standard
+        [ ] | { }, or it may mean you have running text in the command synopsis
+        section (the latter is not technically an error, but most cases of it
+        are impossible to translate into DocBook markup), or it may mean the
+        command syntax fails to match the description.
+    D	Non-break space prevents doclifter from incorrectly interpreting
+        "Feature Test" as end of function synopsis.
+    H	Renaming SYNOPSIS because either (a) third-party viewers and
+        translators will try to interpret it as a command synopsis and become
+        confused, or (b) it actually needs to be named "SYNOPSIS" with no
+        modifier for function protoypes to be properly recognized.
+    M	Synopsis section name changed to avoid triggering command-synopsis
+        parsing.
+    U	Unbalanced group in command synopsis. You probably forgot
+        to open or close a [ ] or { } group properly.
+    Z	Your Synopsis is exceptionally creative.  Unfortunately, that means
+        it cannot be translated to structural markup even when things like
+        running-text inclusions have been moved elswhere.
+    i	Non-ASCII character in document synopsis can't be parsed.
+    j	Parenthesized comments in command synopsis.  This is impossible
+        to translate to DocBook.
+    p	Synopsis was incomplete and somewhat garbled.
+    t	Synopsis has to be immediately after NAME section for DocBook
+
+
+POSIX.1-2008 Strict Rules
+=========================
 
 **The following syntax rules are non-exhaustive but give a quick overview of the standard:**
 
@@ -55,6 +105,12 @@ POSIX.1-2008 reference\ [#posix-synopsis]_ defines guidance rules which shall be
 .. http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap12.html
 .. https://stackoverflow.com/questions/8957222/are-there-standards-for-linux-command-line-switches-and-arguments
 
+Accepted non-POSIX rules
+========================
+
+- POSIX guideline **G3** must be extended with GNU-style and X-Toolkit style options.
+
+
 Option Description Model
 ########################
 
@@ -68,3 +124,5 @@ Sub-commands
 .. container:: footnotes
 
    .. [#posix-synopsis] See `POSIX.1-2008, sec. 12.1 <http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap12.html>`_, “Utility Conventions”
+   .. [#doclifter-project] See `Gitlab project <https://gitlab.com/esr/doclifter>`_
+   .. [#doclifter-patches] See `PATCHES file from doclifter project <https://gitlab.com/esr/doclifter/raw/master/PATCHES>`_
