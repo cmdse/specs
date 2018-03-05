@@ -72,7 +72,7 @@ Some of these context-free token types overlap semantic token types, because the
     - yes
     - ``[+option]``
     - *self*
-  * - ``END_OF_OPTIONS``
+  * - ``POSIX_END_OF_OPTIONS``
     - yes
     - ``[--]``
     - *self*
@@ -237,7 +237,7 @@ In the :numref:`token-positional-model`, the first 5 models are applicable for s
   * - ``GNU_EXPLICIT_ASSIGNMENT``
     - ``[--option=<value>]``
     - ``STANDALONE_OPT_ASSIGNMENT``
-  * - ``END_OF_OPTIONS``
+  * - ``POSIX_END_OF_OPTIONS``
     - ``[--]``
     - ``OPT_SWITCH``
   * - ``OPERAND``
@@ -268,7 +268,7 @@ To get there, it will proceed with the following steps :
 #. Fetch the :term:`utility interface model` (PIM) if it exists.
 #. Provide the list and the PIM as arguments of the *parse* function (:numref:`algo-parse`). Such function will do the following:
 
-   #. Check for the existence of an ``END_OF_OPTIONS`` typed token (:numref:`algo-check-end-of-options`) and convert to operands all remaining tokens to the right.
+   #. Check for the existence of an ``POSIX_END_OF_OPTIONS`` typed token (:numref:`algo-check-end-of-options`) and convert to operands all remaining tokens to the right.
    #. Repeat the following operation until the last two operations didn't turn out to at least one context-free to semantic conversion:
 
         For each non-semantic token, *inferRight* (:numref:`algo-infer-right`) and *inferLeft* (:numref:`algo-infer-left`). Those functions will try to infer the semantic type by checking its siblings'. For example, if the left sibling token type is ``X2LKT_IMPLICIT_ASSIGNEMNT_LEFT_SIDE``, the only possible type for this token would be ``X2LKT_IMPLICIT_ASSIGNMENT_VALUE``.

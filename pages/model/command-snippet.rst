@@ -306,7 +306,7 @@ In the :numref:`option-expression-variants`, different option expression variant
     - GNU
     - Very common
   * - ``--``
-    - ``END_OF_OPTIONS``
+    - ``POSIX_END_OF_OPTIONS``
     - Signal end of options, i.e. upcoming arguments must be treated as :term:`operands <operand>`\ [#end-of-options]_
     - GNU
     - Common
@@ -335,7 +335,7 @@ An :term:`option scheme` is a set of :term:`option expression variants <option e
     - * ``POSIX_SHORT_SWITCH``
       * ``POSIX_STACKED_SHORT_SWITCHES``
       * ``POSIX_SHORT_ASSIGNMENT``
-      * ``END_OF_OPTIONS``
+      * ``POSIX_END_OF_OPTIONS``
   * - Linux-Standard
     - Option expressions can be of any common GNU or POSIX-styled variants. Very often, one option has either one GNU and one POSIX variant, either one POSIX variant.
     - * ``POSIX_SHORT_SWITCH``
@@ -344,7 +344,7 @@ An :term:`option scheme` is a set of :term:`option expression variants <option e
       * ``GNU_SWITCH``
       * ``GNU_IMPLICIT_ASSIGNMENT``
       * ``GNU_EXPLICIT_ASSIGNMENT``
-      * ``END_OF_OPTIONS``
+      * ``POSIX_END_OF_OPTIONS``
   * - Linux-Explicit
     - Option expressions can be of any common GNU or POSIX-styled variants with implicit assignments.
     - * ``POSIX_SHORT_SWITCH``
@@ -352,7 +352,7 @@ An :term:`option scheme` is a set of :term:`option expression variants <option e
       * ``POSIX_SHORT_ASSIGNMENT``
       * ``GNU_SWITCH``
       * ``GNU_EXPLICIT_ASSIGNMENT``
-      * ``END_OF_OPTIONS``
+      * ``POSIX_END_OF_OPTIONS``
   * - Linux-Implicit
     - Option expressions can be of any common GNU or POSIX-styled variants with explicit assignments.
     - * ``POSIX_SHORT_SWITCH``
@@ -360,14 +360,14 @@ An :term:`option scheme` is a set of :term:`option expression variants <option e
       * ``POSIX_SHORT_ASSIGNMENT``
       * ``GNU_SWITCH``
       * ``GNU_IMPLICIT_ASSIGNMENT``
-      * ``END_OF_OPTIONS``
+      * ``POSIX_END_OF_OPTIONS``
   * - X-Toolkit-Strict
     - Option expressions can be composed solely with X-Toolkit-styled variants.
     - * ``X2LKT_SWITCH``
       * ``X2LKT_REVERSE_SWITCH``
       * ``X2LKT_IMPLICIT_ASSIGNMENT``
       * ``X2LKT_EXPLICIT_ASSIGNMENT``
-      * ``END_OF_OPTIONS``
+      * ``POSIX_END_OF_OPTIONS``
   * - X-Toolkit-Standard
     - Option expressions can be composed solely with X-Toolkit-styled variants and POSIX short.
     - * ``X2LKT_SWITCH``
@@ -375,21 +375,21 @@ An :term:`option scheme` is a set of :term:`option expression variants <option e
       * ``X2LKT_IMPLICIT_ASSIGNMENT``
       * ``X2LKT_EXPLICIT_ASSIGNMENT``
       * ``POSIX_SHORT_SWITCH``
-      * ``END_OF_OPTIONS``
+      * ``POSIX_END_OF_OPTIONS``
   * - X-Toolkit-Explicit
     - Option expressions can be composed solely with X-Toolkit-styled variants and POSIX short.
     - * ``X2LKT_SWITCH``
       * ``X2LKT_REVERSE_SWITCH``
       * ``X2LKT_EXPLICIT_ASSIGNMENT``
       * ``POSIX_SHORT_SWITCH``
-      * ``END_OF_OPTIONS``
+      * ``POSIX_END_OF_OPTIONS``
   * - X-Toolkit-Implicit
     - Option expressions can be composed solely with X-Toolkit-styled variants and POSIX short.
     - * ``X2LKT_SWITCH``
       * ``X2LKT_REVERSE_SWITCH``
       * ``X2LKT_IMPLICIT_ASSIGNMENT``
       * ``POSIX_SHORT_SWITCH``
-      * ``END_OF_OPTIONS``
+      * ``POSIX_END_OF_OPTIONS``
 
 Analytic model
 ##############
