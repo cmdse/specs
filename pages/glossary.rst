@@ -59,7 +59,7 @@ Glossary
     [Unix shells] The basename of a :term:`utility executable` file that the shell will try to locate with :envvar:`PATH` environment variable.
 
   utility interface model
-    [|app-name|] Structured data describing the command line interface capabilities of a :term:`utility executable` identified by its :term:`utility name`. The capabilities are defined through:
+    [|project-name|] Structured data describing the command line interface capabilities of a :term:`utility executable` identified by its :term:`utility name`. The capabilities are defined through:
 
       - a set of :term:`synopses <synopsis>` of minimum length one;
       - an :term:`option description model` which is a set of options and their related expressions;
@@ -76,7 +76,7 @@ Glossary
     [Unix shells] Compound commands are the shell programming constructs. Each construct begins with a reserved word or control operator and is terminated by a corresponding reserved word or operator. They are introduced by a keyword such as ``if`` or ``while``.
 
   command snippet metadata
-    [|app-name|] Structured data about a :term:`command snippet`. Such information may be comprised of the following fields:
+    [|project-name|] Structured data about a :term:`command snippet`. Such information may be comprised of the following fields:
 
     * a list of :term:`utility interface models <utility interface model>` reffered to in the snippet;
     * text description of the snippet;
@@ -84,24 +84,24 @@ Glossary
     * a list of :term:`command parameters <command parameter>` consisting each of a name, a description field and an optional default value.
 
   command parameter
-    [|app-name|] A :term:`command snippet` parameter is a string which should be substituted with user input when the corresponding snippet is invoked.
+    [|project-name|] A :term:`command snippet` parameter is a string which should be substituted with user input when the corresponding snippet is invoked.
 
   command snippet
-    [|app-name|] A shell-processable text.
+    [|project-name|] A shell-processable text.
 
   option expression variant
-      [|app-name|] A pattern to recognize one or many arguments as members of an option flag or option assignment (see :numref:`option-expression-variants`).
+    [|project-name|] A pattern to recognize one or many arguments as members of an option flag or option assignment (see :numref:`option-expression-variants`).
 
   option description
-    [|app-name|] Structured data composed of a description text field and a collection of match models.
+    [|project-name|] Structured data composed of a description text field and a collection of match models.
     Each match model is related to an :term:`option expression variant` and has a one-or-two groups regular expression.
     When two groups can be matched, the latest is the option parameter of an explicit option assignments.
 
   option description model
-   [|app-name|] An option description model is a set of :term:`option descriptions <option description>`.
+   [|project-name|] An option description model is a set of :term:`option descriptions <option description>`.
 
   option scheme
-    [|app-name|] A set of :term:`option expression variants <option expression variant>` supported by a program command line interface (see :numref:`option-expression-variants`).
+    [|project-name|] A set of :term:`option expression variants <option expression variant>` supported by a program command line interface (see :numref:`option-expression-variants`).
 
   synopsis
     [Unix shells] A text pattern describing a set of possible :term:`call expressions <call expression>`.
@@ -110,10 +110,10 @@ Glossary
     [Unix shells] "Word" has a special meaning in shells. In a quote-free context, it is a sequence of non-meta characters separated with blanks. Otherwise, any quoted expression is interpreted as a single word.
 
   version range
-    [|app-name|] A version range is an expression describing a range of software versions. Such an expression is written with semver syntax\ [#semver]_.
+    [|project-name|] A version range is an expression describing a range of software versions. Such an expression is written with semver syntax\ [#semver]_.
 
   call expression
-    [|app-name|] A call expression is a valid shell-processable character sequence of optional variable assignments followed by a word reffered to as the ":term:`command identifier`" and a list of :term:`words <word>`, namely "arguments". This command identifier cannot be a :term:`compound command`, since it is semantically closer to a control construct.
+    [|project-name|] A call expression is a valid shell-processable character sequence of optional variable assignments followed by a word reffered to as the ":term:`command identifier`" and a list of :term:`words <word>`, namely "arguments". This command identifier cannot be a :term:`compound command`, since it is semantically closer to a control construct.
     When such expression is evaluated, the first word specifies the :term:`command identifier`, and is passed as positional parameter zero. The remaining argument expressions are passed as positional parameters to the invoked command. When a substitution expression is encountered, it will be evaluated before the :term:`command identifier` executable is invoked.
 
   operand

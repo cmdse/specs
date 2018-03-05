@@ -1,6 +1,6 @@
-########
-Manparse
-########
+############
+Manparse CLI
+############
 
 .. note:: The project is developped at `github.com/cmdse/manparse <https://github.com/cmdse/manparse>`_
 

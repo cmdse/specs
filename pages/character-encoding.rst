@@ -17,7 +17,7 @@ POSIX locale environement variables
 In POSIX systems, a set of environment variables share knowledge on locale and encoding set for the system [#posix-locale]_.
 The :envvar:`LANG`, :envvar:`LC_ALL` and :envvar:`LC_CTYPE` environment variables are those of interest for encoding. Each of their value has the following pattern:
 
-.. code-block:: text
+.. container:: synopsis
 
   $lang[.$codeset[@$variant]
 
@@ -59,14 +59,16 @@ Linux terminal
 
   If the console is in utf8 mode (see  :linuxman:`unicode_start(1)`)  then  the  kernel expects  that  user program output is coded as UTF-8 (see :linuxman:`utf-8(7)`), and converts that to Unicode (ucs2).  Otherwise, a translation table is used from the 8-bit program output to 16-bit Unicode values. Such a translation table is called a Unicode console map.  There are four of them: three built  into  the  kernel,  the fourth  settable  using  the  -m  option of setfont.  An escape sequence chooses between these four tables; after loading a cmap, setfont will output the escape sequence Esc ( K that makes it the active translation.
 
-  :linuxman:`setfont(8)`
+  -- :linuxman:`setfont(8)`
 
 Linux commands
 ==============
 
 .. epigraph::
 
-  Some command-line utilities have problems with multibyte characters. For example, tr always assumes that one character is represented as one byte, regardless of the locale. [#intro-unicode]_
+  Some command-line utilities have problems with multibyte characters. For example, tr always assumes that one character is represented as one byte, regardless of the locale.
+
+  -- Introduction to Unicode — Using Unicode in Linux\ [#intro-unicode]_
 
 Program encoding strategy
 #########################

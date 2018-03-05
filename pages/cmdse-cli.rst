@@ -1,32 +1,25 @@
-######################
-Command Line Interface
-######################
-
-Usage
-######################
+#########
+cmdse CLI
+#########
 
 Synopsis
-**********************
+########
 
 .. container:: synopsis big
 
    cmdse [-i|-c|-e] <QUERY>...
 
-The default behaviour of |app-name| is to process ``<QUERY>...`` operands and print the best-matched :term:`command snippets <command snippet>`.
+The default behaviour of |app-name| is to process ``QUERY…`` operands and print the best-matched :term:`command snippets <command snippet>`.
 
-
-QUERY operands
-**********************
-
-A QUERY operand is a :term:`word` witch is evaluated either as a :term:`query selectors <query selector>` or a :term:`query literals <query literal>`.
+A ``QUERY`` operand is a :term:`word` witch is evaluated either as a :term:`query selectors <query selector>` or a :term:`query literals <query literal>`.
 
 .. code-block:: bash
    :caption: Example with a :term:`program query selector` and two :term:`query literals <query literal>`
 
    $ cmdse :tar extract files
 
-OPTIONS
-**********************
+Options
+#######
 
 .. program:: cmdse
 
@@ -44,7 +37,7 @@ OPTIONS
   For any :term:`command parameter`, the user will be prompt to provide an input.
 
 Examples
-**********************
+########
 
 .. code-block:: bash
   :caption: Query matching literal sequence "tar unpack"

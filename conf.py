@@ -46,7 +46,7 @@ extensions = [
 
 rst_epilog = """
 
-.. |project-name| replace:: **cmdse**
+.. |project-name| replace:: *cmdse*
 .. |app-name| replace:: :program:`cmdse`
 
 """
