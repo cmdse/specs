@@ -1,5 +1,5 @@
 #########
-cmdse CLI
+Cmdse CLI
 #########
 
 Synopsis

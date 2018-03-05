@@ -175,19 +175,19 @@ table, .literal-block-wrapper.docutils.container {
 
 .rst-content .container.synopsis {
   position: relative;
-  margin-left: 48px;
+  margin-left: 0;
   line-height: 1;
   margin-bottom: 24px;
-  margin-right: 48px;
   font-family: monospace;
   font-size: 16px;
-  background: black;
+  background: #404040;
   color: white;
   padding: 24px;
 }
 
 .rst-content .container.synopsis.big {
   font-size: 24px;
+  padding: 32px;
 }
 
 .rst-content .container.definition {
@@ -266,4 +266,9 @@ body {
 
 .rst-content .program, .rst-content .command {
   font-family: monospace;
+}
+
+.rst-content .literal-block-wrapper .highlight-bash .highlight pre {
+  background: #404040;
+  color: white;
 }
