@@ -342,7 +342,6 @@ Edge cases and extension perspectives
 Some argument constructs must be anticipated, so here is a list of problematic examples to open to further enhancements:
 
 - How to model restricted operands such as in :linuxman:`dd(1)`? Although they look like headless options, dd operands are "typed".
-- How to model sub-commands, such as in :linuxman:`git(1)`?
 - How to model commands which operands can be another command, such as `find -exec <command> {} \;` ?
 
 ----------------------

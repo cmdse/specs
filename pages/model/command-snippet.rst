@@ -211,7 +211,6 @@ Arguments
 Arguments are :term:`words <word>` following the :term:`command identifier`.
 Discriminating between option expressions and :term:`operands <operand>` and giving semantics to each argument is a central aspect of |project-name| to fulfill its pedagogical goal.
 
-
 Option expressions
 ++++++++++++++++++
 
@@ -223,173 +222,6 @@ Operands
 
 :term:`Operands <operand>` are the subject upon which the program operates.
 
-.. _option-expression-syntax:
-
-Option expressions syntax
-#########################
-
-Styles
-======
-
-Three option styles exists in the unix world.
-
-#. `POSIX Style <http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap12.html>`_
-#. `GNU Style <https://www.gnu.org/prep/standards/html_node/Command_002dLine-Interfaces.html>`_
-#. `X Toolkit Style <http://www.catb.org/esr/writings/taoup/html/ch10s05.html>`_
-
-In the :numref:`option-expression-variants`, different option expression variants are listed and their corresponding style.
-
-.. _option-expression-variants:
-.. list-table:: Option expression variants
-  :header-rows: 1
-  :widths: 1 20 40 15 10
-
-  * - | Expression variant
-      | assign. value in "<>"
-    - Variant
-    - Description
-    - Style
-    - Prevalence
-  * - ``-o``
-    - ``POSIX_SHORT_SWITCH``
-    - One-letter option switch
-    - POSIX
-    - Very common
-  * - ``-opq``
-    - ``POSIX_GROUPED_SHORT_FLAGS``
-    - One-letter option stack switch. This is equivalent to ``-o -p -q``.
-    - POSIX
-    - Common
-  * - ``-o <value>``
-    - ``POSIX_SHORT_ASSIGNMENT``
-    - One-letter option switch with value assignment
-    - POSIX
-    - Very common
-  * - ``-o<value>``
-    - ``POSIX_SHORT_STICKY_VALUE``
-    - One-letter option switch with integer sticky value
-    - POSIX
-    - Rare
-  * - ``-option``
-    - ``X2LKT_SWITCH``
-    - Long option switch
-    - X Toolkit
-    - Less common
-  * - ``+option``
-    - ``X2LKT_REVERSE_SWITCH``
-    - Long option switch reset (:linuxman:`xterm(1)`)
-    - X Toolkit
-    - Rare
-  * - ``-option <value>``
-    - ``X2LKT_IMPLICIT_ASSIGNMENT``
-    - Long option switch with implicit value assignment
-    - X Toolkit
-    - Less common
-  * - ``-option=<value>``
-    - ``X2LKT_EXPLICIT_ASSIGNMENT``
-    - Long option switch with explicit value assignment
-    - X Toolkit
-    - Less common
-  * - ``--option``
-    - ``GNU_SWITCH``
-    - Long option switch
-    - GNU
-    - Very common
-  * - ``--option <value>``
-    - ``GNU_IMPLICIT_ASSIGNMENT``
-    - Long option switch with implicit value assignement
-    - GNU
-    - Very common
-  * - ``--option=<value>``
-    - ``GNU_EXPLICIT_ASSIGNMENT``
-    - Long option switch with explicit value assignment
-    - GNU
-    - Very common
-  * - ``--``
-    - ``POSIX_END_OF_OPTIONS``
-    - Signal end of options, i.e. upcoming arguments must be treated as :term:`operands <operand>`\ [#end-of-options]_
-    - GNU
-    - Common
-  * - ``option``
-    - ``HEADLESS_OPTION``
-    - An "old style" option, see :linuxman:`tar(1)`\ [#tar]_ for an example.
-    - NONE
-    - Very rare
-
-
-Option schemes
-==============
-
-An :term:`option scheme` is a set of :term:`option expression variants <option expression variant>` which delimits the option expressions supported by a :term:`command identifier`, see examples in :numref:`option-schemes`.
-
-.. _option-schemes:
-.. list-table:: List of option scheme presets
-  :header-rows: 1
-  :widths: 25 40 35
-
-  * - Preset
-    - Description
-    - Supported option expression variants
-  * - POSIX-Strict
-    - Option expressions can be can be composed solely with POSIX-styled variants.
-    - * ``POSIX_SHORT_SWITCH``
-      * ``POSIX_GROUPED_SHORT_FLAGS``
-      * ``POSIX_SHORT_ASSIGNMENT``
-      * ``POSIX_END_OF_OPTIONS``
-  * - Linux-Standard
-    - Option expressions can be of any common GNU or POSIX-styled variants. Very often, one option has either one GNU and one POSIX variant, either one POSIX variant.
-    - * ``POSIX_SHORT_SWITCH``
-      * ``POSIX_GROUPED_SHORT_FLAGS``
-      * ``POSIX_SHORT_ASSIGNMENT``
-      * ``GNU_SWITCH``
-      * ``GNU_IMPLICIT_ASSIGNMENT``
-      * ``GNU_EXPLICIT_ASSIGNMENT``
-      * ``POSIX_END_OF_OPTIONS``
-  * - Linux-Explicit
-    - Option expressions can be of any common GNU or POSIX-styled variants with implicit assignments.
-    - * ``POSIX_SHORT_SWITCH``
-      * ``POSIX_GROUPED_SHORT_FLAGS``
-      * ``POSIX_SHORT_ASSIGNMENT``
-      * ``GNU_SWITCH``
-      * ``GNU_EXPLICIT_ASSIGNMENT``
-      * ``POSIX_END_OF_OPTIONS``
-  * - Linux-Implicit
-    - Option expressions can be of any common GNU or POSIX-styled variants with explicit assignments.
-    - * ``POSIX_SHORT_SWITCH``
-      * ``POSIX_GROUPED_SHORT_FLAGS``
-      * ``POSIX_SHORT_ASSIGNMENT``
-      * ``GNU_SWITCH``
-      * ``GNU_IMPLICIT_ASSIGNMENT``
-      * ``POSIX_END_OF_OPTIONS``
-  * - X-Toolkit-Strict
-    - Option expressions can be composed solely with X-Toolkit-styled variants.
-    - * ``X2LKT_SWITCH``
-      * ``X2LKT_REVERSE_SWITCH``
-      * ``X2LKT_IMPLICIT_ASSIGNMENT``
-      * ``X2LKT_EXPLICIT_ASSIGNMENT``
-      * ``POSIX_END_OF_OPTIONS``
-  * - X-Toolkit-Standard
-    - Option expressions can be composed solely with X-Toolkit-styled variants and POSIX short.
-    - * ``X2LKT_SWITCH``
-      * ``X2LKT_REVERSE_SWITCH``
-      * ``X2LKT_IMPLICIT_ASSIGNMENT``
-      * ``X2LKT_EXPLICIT_ASSIGNMENT``
-      * ``POSIX_SHORT_SWITCH``
-      * ``POSIX_END_OF_OPTIONS``
-  * - X-Toolkit-Explicit
-    - Option expressions can be composed solely with X-Toolkit-styled variants and POSIX short.
-    - * ``X2LKT_SWITCH``
-      * ``X2LKT_REVERSE_SWITCH``
-      * ``X2LKT_EXPLICIT_ASSIGNMENT``
-      * ``POSIX_SHORT_SWITCH``
-      * ``POSIX_END_OF_OPTIONS``
-  * - X-Toolkit-Implicit
-    - Option expressions can be composed solely with X-Toolkit-styled variants and POSIX short.
-    - * ``X2LKT_SWITCH``
-      * ``X2LKT_REVERSE_SWITCH``
-      * ``X2LKT_IMPLICIT_ASSIGNMENT``
-      * ``POSIX_SHORT_SWITCH``
-      * ``POSIX_END_OF_OPTIONS``
 
 Analytic model
 ##############
@@ -424,10 +256,8 @@ Alias
 
 .. container:: footnotes
 
-  .. [#tar] `Tar "Old Option Style" <https://www.gnu.org/software/tar/manual/html_section/tar_21.html#SEC38>`_
   .. [#bashman] :linuxman:`bash(1)`
   .. [#bash-exceptions] Four exceptions: multiple lines can be processed in one row when terminated with the escape character, ``\`` and `here-documents <https://en.wikipedia.org/wiki/Here_document>`_ are read multilines until the provided WORD is matched. Also :term:`compound commands <compound command>` such as ``for`` construct may be written in multiple lines, needing some look-ahead line processing before execution. Finally, the semicolon ``;`` metacharacter is interpreted as a line delimiter.
   .. [#bash-getopts] In a great number of bash :term:`builtin commands <builtin command>` and unix programs, the double-dash ``--`` is a signal to inform that any upcoming argument should be treated as an :term:`operand`. This behavior is implemented by the :linuxman:`getopt(3)` GNU function, which documentation states that "the special argument '--' forces an end of option-scanning".
-  .. [#end-of-options] See `POSIX.1-2008, sec. 12.1 <http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap12.html>`_, guideline 10 which states that “The first -- argument that is not an option-argument should be accepted as a delimiter indicating the end of options. Any following arguments should be treated as operands, even if they begin with the '-' character.” In a great number of bash :term:`builtin commands <builtin command>` and unix programs, this behavior is implemented.
   .. [#path-resolution] The shell will resolve the first :term:`utility executable` that matches the :term:`utility name` while iterating over each path expression hold in the :envvar:`PATH` variable. So this executable should be considered the one and only valid executable.
   .. [#positional-parameter] See `POSIX.1-2008, sec. 2.5.1 <http://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html#tag_18_05_01>`_

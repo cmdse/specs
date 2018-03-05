@@ -48,9 +48,9 @@ The |project-name| program should meet the following requirements:
    :glob:
 
    pages/cmdse-cli
+   pages/model/uim
    pages/model/command-snippet
    pages/model/call-expression-parsing
-   pages/model/uim
    pages/model/query
    pages/model/user
    pages/manparse-cli

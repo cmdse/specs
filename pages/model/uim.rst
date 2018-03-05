@@ -2,19 +2,24 @@
 Utility Interface Model
 #######################
 
-A :term:`utility interface model` is defined as follow:
+.. note:: A :term:`utility interface model` (UIM) is a central aspect of |project-name| model since it enables all rich-semantic features. :command:`manparse` is a tool developed along with |project-name| to extract such UIM from manpages, see :numref:`manparse-cli-section`.
+
+It is defined as follow:
 
 .. container:: definition
 
   Structured data describing the command line interface capabilities of a :term:`utility executable` identified by its :term:`utility name`. The capabilities are defined through:
 
-  - a set of :term:`synopses <synopsis>` of minimum length one;
-  - an :term:`option description model` which is a set of options and their related expressions;
-  - an :term:`option scheme`;
-  - an optional set of :term:`sub-commands <sub-command>`.
+  - a set of :term:`synopses <synopsis>` of minimum length one, see :numref:`synopses-section` ;
+  - an :term:`option description model` which is a set of options and their related expressions, see :numref:`option-description-model-section`;
+  - an :term:`option scheme`, see :numref:`option-schemes-section`;
+  - an optional set of :term:`sub-commands <sub-command>`, see :numref:`subcommands-section`.
 
   Those are defined for a peculiar :term:`version range`.
   The term “utility” is directly borrowed from the POSIX.1-2008 reference\ [#posix-synopsis]_.
+
+
+.. _synopses-section:
 
 Synopses
 ########
@@ -26,41 +31,7 @@ POSIX.1-2008 reference\ [#posix-synopsis]_ defines strictly the syntax of a util
 
    **utility_name[**-a\ **][**-b\ **][**-c option_argument\ **][**-d\ **|**-e\ **][**-f\ **[**\ option_argument\ **]][**\ operand\ **...]**
 
-This standard syntax definition is globally well defined. :command:`doclifter`\ [#doclifter-project]_ uses it to generate docbook files with ``<refsynopsis>`` tags:
-
-.. container:: quote
-
-   It lifts over **93%** of these pages without requiring any hand-hacking.
-
-He maintains a list of non-complying tools on a bare Ubuntu installation\ [#doclifter-patches]_, in which are described 10 errors regarding SYNOPSIS interpolation:
-
-.. code-block:: text
-
-    C	Broken command synopsis syntax. This may mean you're using a
-        construction in the command synopsis other than the standard
-        [ ] | { }, or it may mean you have running text in the command synopsis
-        section (the latter is not technically an error, but most cases of it
-        are impossible to translate into DocBook markup), or it may mean the
-        command syntax fails to match the description.
-    D	Non-break space prevents doclifter from incorrectly interpreting
-        "Feature Test" as end of function synopsis.
-    H	Renaming SYNOPSIS because either (a) third-party viewers and
-        translators will try to interpret it as a command synopsis and become
-        confused, or (b) it actually needs to be named "SYNOPSIS" with no
-        modifier for function protoypes to be properly recognized.
-    M	Synopsis section name changed to avoid triggering command-synopsis
-        parsing.
-    U	Unbalanced group in command synopsis. You probably forgot
-        to open or close a [ ] or { } group properly.
-    Z	Your Synopsis is exceptionally creative.  Unfortunately, that means
-        it cannot be translated to structural markup even when things like
-        running-text inclusions have been moved elswhere.
-    i	Non-ASCII character in document synopsis can't be parsed.
-    j	Parenthesized comments in command synopsis.  This is impossible
-        to translate to DocBook.
-    p	Synopsis was incomplete and somewhat garbled.
-    t	Synopsis has to be immediately after NAME section for DocBook
-
+This standard syntax definition is globally well defined. :command:`doclifter`\ [#doclifter-project]_ author reports a 93% success rate for its manapge to DocBook extractor on a bare Ubuntu install.
 
 POSIX.1-2008 Strict Rules
 =========================
@@ -120,9 +91,206 @@ Accepted non-POSIX rules
 
 - POSIX guideline **G3** must be extended with GNU-style and X-Toolkit style options.
 
+*to be continued*
+
+.. todo:: Write a list of accepted non-POSIX rules
+
+.. _option-description-model-section:
 
 Option Description Model
 ########################
+
+An option description model is a set of :term:`option descriptions <option description>`. The latter is defined as follow:
+
+.. container:: definition
+
+   Structured data composed of a description text field and a collection of match models.
+   Each match model is related to an :term:`option expression variant` and has a one-or-two groups regular expression.
+   When two groups can be matched, the latest is the option parameter of an explicit option assignments.
+
+It is traditionnaly found on linux manual pages in the "OPTIONS" section. Bellow an invented example:
+
+.. code-block:: console
+
+   OPTIONS
+       -h, --help
+           Display help.
+
+       -a, --all
+           Select all items.
+
+        ...
+
+
+.. _option-expression-syntax:
+
+Option expressions Variants
+===========================
+
+Three option styles exists in the unix world.
+
+#. `POSIX Style <http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap12.html>`_
+#. `GNU Style <https://www.gnu.org/prep/standards/html_node/Command_002dLine-Interfaces.html>`_
+#. `X Toolkit Style <http://www.catb.org/esr/writings/taoup/html/ch10s05.html>`_
+
+In the :numref:`option-expression-variants`, different option expression variants are listed and their corresponding style.
+
+.. _option-expression-variants:
+.. list-table:: Option expression variants
+  :header-rows: 1
+  :widths: 1 20 40 15 10
+
+  * - | Expression variant
+      | assign. value in "<>"
+    - Variant
+    - Description
+    - Style
+    - Prevalence
+  * - ``-o``
+    - ``POSIX_SHORT_SWITCH``
+    - One-letter option switch
+    - POSIX
+    - Very common
+  * - ``-opq``
+    - ``POSIX_GROUPED_SHORT_FLAGS``
+    - One-letter option stack switch. This is equivalent to ``-o -p -q``.
+    - POSIX
+    - Common
+  * - ``-o <value>``
+    - ``POSIX_SHORT_ASSIGNMENT``
+    - One-letter option switch with value assignment
+    - POSIX
+    - Very common
+  * - ``-o<value>``
+    - ``POSIX_SHORT_STICKY_VALUE``
+    - One-letter option switch with integer sticky value
+    - POSIX
+    - Common
+  * - ``-option``
+    - ``X2LKT_SWITCH``
+    - Long option switch
+    - X Toolkit
+    - Less common
+  * - ``+option``
+    - ``X2LKT_REVERSE_SWITCH``
+    - Long option switch reset (:linuxman:`xterm(1)`)
+    - X Toolkit
+    - Rare
+  * - ``-option <value>``
+    - ``X2LKT_IMPLICIT_ASSIGNMENT``
+    - Long option switch with implicit value assignment
+    - X Toolkit
+    - Less common
+  * - ``-option=<value>``
+    - ``X2LKT_EXPLICIT_ASSIGNMENT``
+    - Long option switch with explicit value assignment
+    - X Toolkit
+    - Less common
+  * - ``--option``
+    - ``GNU_SWITCH``
+    - Long option switch
+    - GNU
+    - Very common
+  * - ``--option <value>``
+    - ``GNU_IMPLICIT_ASSIGNMENT``
+    - Long option switch with implicit value assignement
+    - GNU
+    - Very common
+  * - ``--option=<value>``
+    - ``GNU_EXPLICIT_ASSIGNMENT``
+    - Long option switch with explicit value assignment
+    - GNU
+    - Very common
+  * - ``--``
+    - ``POSIX_END_OF_OPTIONS``
+    - Signal end of options, i.e. upcoming arguments must be treated as :term:`operands <operand>`\ [#end-of-options]_
+    - GNU
+    - Common
+  * - ``option``
+    - ``HEADLESS_OPTION``
+    - An "old style" option, see :linuxman:`tar(1)`\ [#tar]_ for an example.
+    - NONE
+    - Very rare
+
+
+.. _option-schemes-section:
+
+Option scheme
+#############
+
+An :term:`option scheme` is a set of :term:`option expression variants <option expression variant>` which delimits the option expressions supported by a :term:`command identifier`. A list of presets provided by |project-name| is shown in :numref:`option-schemes`.
+
+.. _option-schemes:
+.. list-table:: List of option scheme presets
+  :header-rows: 1
+  :widths: 25 40 35
+
+  * - Preset
+    - Description
+    - Supported option expression variants
+  * - POSIX-Strict
+    - Option expressions can be can be composed solely with POSIX-styled variants.
+    - * ``POSIX_SHORT_SWITCH``
+      * ``POSIX_GROUPED_SHORT_FLAGS``
+      * ``POSIX_SHORT_ASSIGNMENT``
+      * ``POSIX_END_OF_OPTIONS``
+  * - Linux-Standard
+    - Option expressions can be of any common GNU or POSIX-styled variants. Very often, one option has either one GNU and one POSIX variant, either one POSIX variant.
+    - * ``POSIX_SHORT_SWITCH``
+      * ``POSIX_GROUPED_SHORT_FLAGS``
+      * ``POSIX_SHORT_ASSIGNMENT``
+      * ``GNU_SWITCH``
+      * ``GNU_IMPLICIT_ASSIGNMENT``
+      * ``GNU_EXPLICIT_ASSIGNMENT``
+      * ``POSIX_END_OF_OPTIONS``
+  * - Linux-Explicit
+    - Option expressions can be of any common GNU or POSIX-styled variants with implicit assignments.
+    - * ``POSIX_SHORT_SWITCH``
+      * ``POSIX_GROUPED_SHORT_FLAGS``
+      * ``POSIX_SHORT_ASSIGNMENT``
+      * ``GNU_SWITCH``
+      * ``GNU_EXPLICIT_ASSIGNMENT``
+      * ``POSIX_END_OF_OPTIONS``
+  * - Linux-Implicit
+    - Option expressions can be of any common GNU or POSIX-styled variants with explicit assignments.
+    - * ``POSIX_SHORT_SWITCH``
+      * ``POSIX_GROUPED_SHORT_FLAGS``
+      * ``POSIX_SHORT_ASSIGNMENT``
+      * ``GNU_SWITCH``
+      * ``GNU_IMPLICIT_ASSIGNMENT``
+      * ``POSIX_END_OF_OPTIONS``
+  * - X-Toolkit-Strict
+    - Option expressions can be composed solely with X-Toolkit-styled variants.
+    - * ``X2LKT_SWITCH``
+      * ``X2LKT_REVERSE_SWITCH``
+      * ``X2LKT_IMPLICIT_ASSIGNMENT``
+      * ``X2LKT_EXPLICIT_ASSIGNMENT``
+      * ``POSIX_END_OF_OPTIONS``
+  * - X-Toolkit-Standard
+    - Option expressions can be composed solely with X-Toolkit-styled variants and POSIX short.
+    - * ``X2LKT_SWITCH``
+      * ``X2LKT_REVERSE_SWITCH``
+      * ``X2LKT_IMPLICIT_ASSIGNMENT``
+      * ``X2LKT_EXPLICIT_ASSIGNMENT``
+      * ``POSIX_SHORT_SWITCH``
+      * ``POSIX_END_OF_OPTIONS``
+  * - X-Toolkit-Explicit
+    - Option expressions can be composed solely with X-Toolkit-styled variants and POSIX short.
+    - * ``X2LKT_SWITCH``
+      * ``X2LKT_REVERSE_SWITCH``
+      * ``X2LKT_EXPLICIT_ASSIGNMENT``
+      * ``POSIX_SHORT_SWITCH``
+      * ``POSIX_END_OF_OPTIONS``
+  * - X-Toolkit-Implicit
+    - Option expressions can be composed solely with X-Toolkit-styled variants and POSIX short.
+    - * ``X2LKT_SWITCH``
+      * ``X2LKT_REVERSE_SWITCH``
+      * ``X2LKT_IMPLICIT_ASSIGNMENT``
+      * ``POSIX_SHORT_SWITCH``
+      * ``POSIX_END_OF_OPTIONS``
+
+
+.. _subcommands-section:
 
 Sub-commands
 ############
@@ -134,5 +302,6 @@ Sub-commands
 .. container:: footnotes
 
    .. [#posix-synopsis] See `POSIX.1-2008, sec. 12.1 <http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap12.html>`_, “Utility Conventions”
+   .. [#end-of-options] See `POSIX.1-2008, sec. 12.1 <http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap12.html>`_, guideline 10 which states that “The first ``--`` argument that is not an option-argument should be accepted as a delimiter indicating the end of options. Any following arguments should be treated as operands, even if they begin with the ``-`` character.” This behavior is implemented in a great number of bash :term:`builtin commands <builtin command>` and unix programs.
    .. [#doclifter-project] See `Gitlab project <https://gitlab.com/esr/doclifter>`_
-   .. [#doclifter-patches] See `PATCHES file from doclifter project <https://gitlab.com/esr/doclifter/raw/master/PATCHES>`_
+   .. [#tar] `Tar "Old Option Style" <https://www.gnu.org/software/tar/manual/html_section/tar_21.html#SEC38>`_
