@@ -50,7 +50,7 @@ The |project-name| program should meet the following requirements:
    pages/cli
    pages/model/command-snippet
    pages/model/call-expression-parsing
-   pages/model/pim
+   pages/model/uim
    pages/model/query
    pages/model/user
    pages/manparse

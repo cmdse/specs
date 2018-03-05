@@ -44,16 +44,30 @@ Glossary
   .. MODEL
 
   command
-    [Unix shells] A command is a one-line processable text chunk\ [#bash-exceptions]_ to be converted in command invocation. Command invocation consists in passing to the operating system a file to be read and executed (extrapolated from the :term:`program identifier`) with a list of arguments (``argv``).
+    [Unix shells] A command is a one-line processable text chunk\ [#bash-exceptions]_ to be converted in command invocation. Command invocation consists in passing to the operating system a file to be read and executed (extrapolated from the :term:`utility name`) with a list of arguments (``argv``).
 
   sub-command
     A sub command is a utility argument which operates as the alias of an inner command. Exemple of such is :command:`git add` :linuxman:`git-add(1)`
 
   command identifier
-    [Unix shells] A command identifier is a word which maps to a set of instructions, either through a :term:`builtin command`, a declared function,  or with a :term:`program executable`. See the POSIX.1-2008 section on command search and execution\ [#posix-search-execute]_.
+    [Unix shells] A command identifier is a word which maps to a set of instructions, either through a :term:`builtin command`, a declared function,  or with a :term:`utility executable`. See the POSIX.1-2008 section on command search and execution\ [#posix-search-execute]_.
 
-  program executable
-    [Unix shells] An executable file which supports a set of text arguments. Identified in the system with a unique path.
+  utility executable
+    [Unix shells] An executable file which supports positional text arguments.
+
+  utility name
+    [Unix shells] The basename of a :term:`utility executable` file that the shell will try to locate with :envvar:`PATH` environment variable.
+
+  utility interface model
+    [|app-name|] Structured data describing the command line interface capabilities of a :term:`utility executable` identified by its :term:`utility name`. The capabilities are defined through:
+
+      - a set of :term:`synopses <synopsis>` of minimum length one;
+      - an :term:`option description model` which is a set of options and their related expressions;
+      - an :term:`option scheme`;
+      - an optional set of :term:`sub-commands`.
+
+      Those are defined for a peculiar :term:`version range`.
+      The term “utility” is directly extracted from the POSIX.1-2008 reference\ [#posix-synopsis]_.
 
   builtin command
     [Unix shells] A :term:`command identifier` which execution is provided and implemented within the shell.
@@ -64,7 +78,7 @@ Glossary
   command snippet metadata
     [|app-name|] Structured data about a :term:`command snippet`. Such information may be comprised of the following fields:
 
-    * a list of :term:`program interface models <program interface model>` reffered to in the snippet;
+    * a list of :term:`utility interface models <utility interface model>` reffered to in the snippet;
     * text description of the snippet;
     * a list of tags applied to the snippet;
     * a list of :term:`command parameters <command parameter>` consisting each of a name, a description field and an optional default value.
@@ -74,19 +88,6 @@ Glossary
 
   command snippet
     [|app-name|] A shell-processable text.
-
-  program identifier
-    [Unix shells] The name of a :term:`program executable` file that the shell will try to locate with :envvar:`PATH` environment variable.
-
-  program interface model
-    [|app-name|] Structured data describing the command line interface capabilities of a :term:`program executable` identified by its :term:`program identifier`. The capabilities are defined through:
-
-      - a set of :term:`synopses <synopsis>` of minimum length one;
-      - an :term:`option description model` which is a set of options and their related expressions;
-      - an :term:`option scheme`;
-      - an optional set of :term:`sub-commands`.
-
-      Those are defined for a peculiar :term:`version range`.
 
   option expression variant
       [|app-name|] A pattern to recognize one or many arguments as members of an option flag or option assignment (see :numref:`option-expression-variants`).
@@ -123,6 +124,7 @@ Glossary
 
 .. container:: footnotes
 
+  .. [#posix-synopsis] See `POSIX.1-2008, sec. 12.1 <http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap12.html>`_, “Utility Conventions”
   .. [#semver] Semantic versionning definition is available `here: semver.org <https://semver.org/>`_. Semver ranges are defined `here: semver.npmjs.com <https://semver.npmjs.com/>`_.
   .. [#bash-exceptions] Four exceptions: multiple lines can be processed in one row when terminated with the escape character, ``\`` and `here-documents <https://en.wikipedia.org/wiki/Here_document>`_ are read multilines until the provided WORD is matched. Also :term:`compound commands <compound command>` such as ``for`` construct may be written in multiple lines, needing some look-ahead line processing before execution. Finally, the semicolon ``;`` metacharacter is interpreted as a line delimiter.
   .. [#posix-search-execute] See `POSIX.1-2008, sec. 2.9.1 <http://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html#tag_18_09_01_01>`_

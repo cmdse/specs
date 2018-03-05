@@ -4,10 +4,10 @@ Manparse
 
 .. note:: The project is developped at `github.com/cmdse/manparse <https://github.com/cmdse/manparse>`_
 
-``manparse`` is a tool to extract a :term:`program interface model` from man-pages.
-It uses `doclifter <https://gitlab.com/esr/doclifter>`_ from Eric S. Raymond which converts man pages to `DocBook <http://docbook.org>`_ xml files.
+``manparse`` is a tool to extract a :term:`utility interface model` from man-pages.
+It uses :command:`doclifter` [#doclifter-official]_ from Eric S. Raymond which converts man pages to `DocBook <http://docbook.org>`_ xml files.
 Those files already hold a good level of semantics, and ``manparse`` will do its best to grab as much information as possible.
-The :term:`program interface model` should be serialized to be consumed by other tools.
+The :term:`utility interface model` should be serialized to be consumed by other tools.
 Serialization format has not yet been chosen but it will likely be JSON + `JSON Schema <http://json-schema.org/>`_.
 
 CLI overview
@@ -36,7 +36,7 @@ Options
 Implementation details
 ######################
 
-``manparse`` will pass through multiple steps to build up a :term:`program interface model` from a manpage:
+``manparse`` will pass through multiple steps to build up a :term:`utility interface model` from a manpage:
 
 #. call ``doclifter`` to generate a docbook file in a temporary folder;
 #. unmarshall the docbook xml file;
@@ -103,3 +103,9 @@ Option docbook extraction
 
 Sub-commands docbook extraction
 ===============================
+
+--------------------------------------------
+
+.. container:: footnotes
+
+   .. [#doclifter-official] See `doclifter <https://gitlab.com/esr/doclifter>`_

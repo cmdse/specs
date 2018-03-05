@@ -68,16 +68,16 @@ table, .literal-block-wrapper.docutils.container {
 }
 
 .xref.std.std-term {
-  color: #E74C3C;
+  color: #2980B9;
   font-style: italic;
 }
 
 .xref.std.std-term:visited {
-  color: #E74C3C;
+  color: #2980B9;
 }
 
 .xref.std.std-term:hover {
-  color: #d87211;
+  color: #38B3FF;
 }
 
 .rst-content .docutils.footnote {
@@ -89,6 +89,16 @@ table, .literal-block-wrapper.docutils.container {
   line-height: 24px;
   margin-bottom: 24px;
   background: #e7f2fa;
+}
+
+.rst-content .container.definition {
+  border-left: 10px solid #2980B9;
+  padding-left: 24px;
+  position: relative;
+  margin-left: 48px;
+  line-height: 1;
+  margin-bottom: 24px;
+  margin-right: 48px;
 }
 
 .rst-content .figure {
@@ -149,7 +159,7 @@ table, .literal-block-wrapper.docutils.container {
   margin-bottom: 24px;
 }
 
-.rst-content .quote::before {
+.rst-content .container.quote::before {
   position: absolute;
   left: -25px;
   top: 0;
@@ -157,19 +167,16 @@ table, .literal-block-wrapper.docutils.container {
   font-size: 25px
 }
 
-.rst-content .quote {
+.rst-content .container.quote {
   position: relative;
   margin-left: 48px;
   line-height: 24px;
   margin-bottom: 24px;
   margin-right: 48px;
-}
-
-.rst-content .quote {
   font-style: italic;
 }
 
-.rst-content .quote .attribution {
+.rst-content .container.quote .attribution {
   font-weight: bold;
   position: relative;
 }

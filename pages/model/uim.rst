@@ -1,12 +1,12 @@
 #######################
-Program Interface Model
+Utility Interface Model
 #######################
 
-A program interface model is defined as follow:
+A :term:`utility interface model` is defined as follow:
 
-.. container:: quote
+.. container:: definition
 
-  Structured data describing the command line interface capabilities of a :term:`program executable` identified by its :term:`program identifier`. The capabilities are defined through:
+  Structured data describing the command line interface capabilities of a :term:`utility executable` identified by its :term:`utility name`. The capabilities are defined through:
 
   - a set of :term:`synopses <synopsis>` of minimum length one;
   - an :term:`option description model` which is a set of options and their related expressions;
@@ -14,6 +14,7 @@ A program interface model is defined as follow:
   - an optional set of :term:`sub-commands`.
 
   Those are defined for a peculiar :term:`version range`.
+  The term “utility” is directly extracted from the POSIX.1-2008 reference\ [#posix-synopsis]_.
 
 Synopses
 ########

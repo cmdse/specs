@@ -59,7 +59,7 @@ Examples
   [resource-path.tar.gz] to [target-path] directory.
 
 .. code-block:: bash
-  :caption: Query matching all snippets using "docker" program executable
+  :caption: Query matching all snippets using "docker" utility executable
 
   > cmdse :docker
   docker run -it [container] sh
@@ -78,7 +78,7 @@ Examples
   (V10>) Remove all existing images.
 
 .. code-block:: bash
-  :caption: Query restricted to "docker" program executable matching literal sequence "remove all containers"
+  :caption: Query restricted to "docker" utility executable matching literal sequence "remove all containers"
 
   $ cmdse :docker remove all containers
   docker rm $(docker ps -a -q)

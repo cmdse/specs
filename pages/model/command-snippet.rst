@@ -123,7 +123,7 @@ Call expression structure
 
   See the :numref:`call-expression-parsing` for details on how |app-name| should parse call expressions.
 
-|app-name| will provide a static analysis of given :term:`snippets <command snippet>` to infer some understanding of invoked :term:`program executables <program executable>` and their arguments. Given the dynamic nature of unix shell input processing and the context-dependent syntax analysis involved (:numref:`shell-processing-workflow`), there is no guarantee that there will be a perfect match between information gathered during static analysis and runtime effective invocations.
+|app-name| will provide a static analysis of given :term:`snippets <command snippet>` to infer some understanding of invoked :term:`utility executables <utility executable>` and their arguments. Given the dynamic nature of unix shell input processing and the context-dependent syntax analysis involved (:numref:`shell-processing-workflow`), there is no guarantee that there will be a perfect match between information gathered during static analysis and runtime effective invocations.
 The "unit of work" to isolate such runtime invocations is reffered to as a :term:`call expression`.
 A :term:`call expression` is a section of the :term:`command snippet` close to the definition of a bash simple command [#bashman]_. Here is a classic example:
 
@@ -199,11 +199,11 @@ Examples :
 Command identifier
 ==================
 
-A :term:`command identifier` will be ultimately resolved to a :term:`builtin command` or a :term:`program identifier`.
-Within the unix system, the mapping between the :term:`command identifier` and the :term:`program executable` is bijective, that is there is exactly one executable that can be matched from its identifier, and reciprocically, there is exactly one identifier that can be matched from an executable\ [#path-resolution]_.
+A :term:`command identifier` will be ultimately resolved to a :term:`builtin command` or a :term:`utility name`.
+Within the unix system, the mapping between the :term:`command identifier` and the :term:`utility executable` is bijective, that is there is exactly one executable that can be matched from its identifier, and reciprocically, there is exactly one identifier that can be matched from an executable\ [#path-resolution]_.
 
-However, from |app-name| perspective, the association must be done with a loosly defined :term:`program interface model` and is therefore non-bijective.
-First, because multiple programs can hold the same :term:`program identifier`. Second, because this mapping is done in the context of analysing a static :term:`call expression`, and the association will be considered valid for a peculiar :term:`version range` of the program supporting some set of options.
+However, from |app-name| perspective, the association must be done with a loosly defined :term:`utility interface model` and is therefore non-bijective.
+First, because multiple programs can hold the same :term:`utility name`. Second, because this mapping is done in the context of analysing a static :term:`call expression`, and the association will be considered valid for a peculiar :term:`version range` of the program supporting some set of options.
 
 Arguments
 =========
@@ -429,5 +429,5 @@ Alias
   .. [#bash-exceptions] Four exceptions: multiple lines can be processed in one row when terminated with the escape character, ``\`` and `here-documents <https://en.wikipedia.org/wiki/Here_document>`_ are read multilines until the provided WORD is matched. Also :term:`compound commands <compound command>` such as ``for`` construct may be written in multiple lines, needing some look-ahead line processing before execution. Finally, the semicolon ``;`` metacharacter is interpreted as a line delimiter.
   .. [#bash-getopts] In a great number of bash :term:`builtin commands <builtin command>` and unix programs, the double-dash ``--`` is a signal to inform that any upcoming argument should be treated as an :term:`operand`. This behavior is implemented by the :linuxman:`getopt(3)` GNU function, which documentation states that "the special argument '--' forces an end of option-scanning".
   .. [#end-of-options] See `POSIX.1-2008, sec. 12.1 <http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap12.html>`_, guideline 10 which states that “The first -- argument that is not an option-argument should be accepted as a delimiter indicating the end of options. Any following arguments should be treated as operands, even if they begin with the '-' character.” In a great number of bash :term:`builtin commands <builtin command>` and unix programs, this behavior is implemented.
-  .. [#path-resolution] The shell will resolve the first :term:`program executable` that matches the :term:`program identifier` while iterating over each path expression hold in the :envvar:`PATH` variable. So this executable should be considered the one and only valid executable.
+  .. [#path-resolution] The shell will resolve the first :term:`utility executable` that matches the :term:`utility name` while iterating over each path expression hold in the :envvar:`PATH` variable. So this executable should be considered the one and only valid executable.
   .. [#positional-parameter] See `POSIX.1-2008, sec. 2.5.1 <http://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html#tag_18_05_01>`_
