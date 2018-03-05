@@ -7,7 +7,7 @@ Synopsis
 
 .. container:: synopsis big
 
-   cmdse [-i|-c|-e] <QUERY>...
+   cmdse [-i|-c|-e] QUERY...
 
 The default behaviour of |app-name| is to process ``QUERY…`` operands and print the best-matched :term:`command snippets <command snippet>`.
 
