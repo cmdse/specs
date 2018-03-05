@@ -67,7 +67,7 @@ Glossary
       - an optional set of :term:`sub-commands <sub-command>`.
 
       Those are defined for a peculiar :term:`version range`.
-      The term “utility” is directly extracted from the POSIX.1-2008 reference\ [#posix-synopsis]_.
+      The term “utility” is directly borrowed from the POSIX.1-2008 reference\ [#posix-synopsis]_.
 
   builtin command
     [Unix shells] A :term:`command identifier` which execution is provided and implemented within the shell.
